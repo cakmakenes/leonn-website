@@ -1,0 +1,255 @@
+.container {
+  padding-top: 120px;
+  min-height: 100vh;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  padding-bottom: 6rem;
+}
+
+.header {
+  text-align: center;
+  padding: 2rem 2rem 4rem;
+}
+
+.header h1 {
+  font-size: 5rem;
+  color: var(--color-secondary);
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-family: var(--font-primary), sans-serif;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.imageWrapper {
+  position: sticky;
+  top: 120px;
+}
+
+.cardPreview {
+  width: 100%;
+  aspect-ratio: 1.586; /* Credit card ratio roughly */
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  border: 1px solid rgba(219, 189, 130, 0.3);
+}
+
+.cardBg {
+  object-fit: cover;
+}
+
+.cardOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(21, 20, 70, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.cardOverlay h2 {
+  font-size: 4rem;
+  color: var(--color-secondary);
+  margin-bottom: auto;
+}
+
+.cardAmount {
+  font-size: 5rem;
+  font-family: var(--font-secondary), serif;
+  color: var(--color-white);
+  text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.cardText {
+  margin-top: auto;
+  font-family: var(--font-primary), sans-serif;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  opacity: 0.8;
+}
+
+.formWrapper {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(219, 189, 130, 0.1);
+  border-radius: 20px;
+  padding: 3rem;
+}
+
+.section {
+  margin-bottom: 3rem;
+}
+
+.section h3 {
+  font-family: var(--font-secondary), serif;
+  font-size: 1.8rem;
+  color: var(--color-secondary);
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(219, 189, 130, 0.2);
+  padding-bottom: 0.5rem;
+}
+
+.amountGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.amountBtn {
+  background: transparent;
+  border: 1px solid rgba(219, 189, 130, 0.3);
+  color: var(--color-white);
+  padding: 1rem;
+  border-radius: 8px;
+  font-family: var(--font-primary), sans-serif;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.amountBtn:hover {
+  border-color: var(--color-secondary);
+}
+
+.amountBtn.active {
+  background: var(--color-secondary);
+  color: var(--color-primary);
+  border-color: var(--color-secondary);
+  font-weight: bold;
+}
+
+.customAmount {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.inputGroup {
+  margin-bottom: 1rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.input {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--color-white);
+  padding: 1rem;
+  border-radius: 8px;
+  font-family: var(--font-primary), sans-serif;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.input:focus {
+  border-color: var(--color-secondary);
+}
+
+.paymentMethods {
+  display: flex;
+  gap: 1rem;
+}
+
+.paymentRadio {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.paymentRadio.activePayment {
+  border-color: var(--color-secondary);
+  background: rgba(219, 189, 130, 0.1);
+}
+
+.paymentRadio input {
+  accent-color: var(--color-secondary);
+}
+
+.paymentRadio span {
+  font-size: 1.1rem;
+}
+
+.submitBtn {
+  width: 100%;
+  background: var(--color-secondary);
+  color: var(--color-primary);
+  border: none;
+  padding: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.submitBtn:hover {
+  transform: translateY(-2px);
+  background: #e8cca0;
+}
+
+@media (max-width: 992px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+  
+  .imageWrapper {
+    position: static;
+  }
+  
+  .cardPreview {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 3.5rem;
+  }
+  
+  .row {
+    grid-template-columns: 1fr;
+  }
+  
+  .formWrapper {
+    padding: 2rem 1.5rem;
+  }
+}

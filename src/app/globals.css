@@ -1,0 +1,48 @@
+:root {
+  /* Brand Colors */
+  --color-primary: #151446;
+  --color-primary-rgb: 21, 20, 70;
+  
+  --color-secondary: #dbbd82;
+  --color-secondary-rgb: 219, 189, 130;
+  
+  --color-white: #ffffff;
+  --color-black: #050505;
+  --color-text: #eaeaea;
+  --color-background: var(--color-primary); 
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-primary), sans-serif;
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-secondary), serif;
+  font-weight: 500;
+  color: var(--color-secondary);
+}
+
+.font-tertiary {
+  font-family: var(--font-tertiary), cursive;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
