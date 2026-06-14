@@ -60,9 +60,9 @@ export default function Home() {
           </motion.h1>
           <motion.div 
             className={styles.scrollIndicator}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2, duration: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 1 }}
           >
             <span>Aşağı Kaydırın</span>
             <div className={styles.scrollArrow}></div>

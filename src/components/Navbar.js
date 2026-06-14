@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import Logo from "./Logo";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./Navbar.module.css";
 
@@ -32,9 +33,9 @@ export default function Navbar() {
             <Menu size={32} />
           </button>
           
-          <div className={styles.logo}>
-            <Link href="/">
-              <span className="font-tertiary">Leonn</span>
+          <div className={styles.logoWrapper}>
+            <Link href="/" aria-label="Leonn Homepage">
+              <Logo className={styles.svgLogo} />
             </Link>
           </div>
           
