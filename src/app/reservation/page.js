@@ -16,14 +16,58 @@ export default function ReservationPage() {
     message: ""
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`Rezervasyon isteğiniz alındı!\nTarih: ${formData.date}\nSaat: ${formData.time}\nKişi: ${formData.guests}`);
+    setIsLoading(true);
+    
+    try {
+      const res = await fetch("/api/reservation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: `${formData.firstName} ${formData.lastName}`,
+          email: formData.email,
+          phone: formData.phone,
+          date: formData.date,
+          time: formData.time,
+          guests: Number(formData.guests) || 12,
+          specialRequests: formData.message,
+        })
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setSuccess(true);
+      } else {
+        alert("Ein Fehler ist aufgetreten: " + (data.error || "Unbekannt"));
+      }
+    } catch (err) {
+      alert("Systemfehler bei der Reservierung.");
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  if (success) {
+    return (
+      <main className={styles.container}>
+        <div className={styles.header}>
+          <h1 className="font-tertiary">Vielen Dank!</h1>
+          <p className={styles.subtitle}>Ihre Reservierungsanfrage wurde erfolgreich übermittelt.</p>
+        </div>
+        <div style={{textAlign: "center", color: "var(--color-secondary)", marginTop: "2rem", fontSize: "1.2rem"}}>
+          Wir haben Ihnen eine Bestätigungs-E-Mail gesendet und werden uns in Kürze bei Ihnen melden.
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className={styles.container}>
@@ -117,8 +161,8 @@ export default function ReservationPage() {
             </div>
           </div>
 
-          <button type="submit" className={styles.submitBtn}>
-            Jetzt Reservieren
+          <button type="submit" className={styles.submitBtn} disabled={isLoading}>
+            {isLoading ? "Bitte warten..." : "Jetzt Reservieren"}
           </button>
           <p className={styles.infoText}>
             Nach dem Absenden erhalten Sie keine automatische Bestätigung. Wir prüfen Ihre Anfrage und melden uns schnellstmöglich per E-Mail bei Ihnen.

@@ -48,9 +48,9 @@ export default function Navbar() {
         {isOpen && (
           <motion.div 
             className={styles.overlay}
-            initial={{ x: "100%" }}
+            initial={{ x: "-100%" }}
             animate={{ x: 0 }}
-            exit={{ x: "100%" }}
+            exit={{ x: "-100%" }}
             transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
             style={{ willChange: "transform" }}
           >

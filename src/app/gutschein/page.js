@@ -25,9 +25,36 @@ export default function GutscheinPage() {
     setCustomAmount("");
   };
 
-  const handleSubmit = (e) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`Checkout işlemi başlatılıyor...\nTutar: ${amount}€\nÖdeme Yöntemi: ${paymentMethod}`);
+    setIsLoading(true);
+    
+    const formData = new FormData(e.target);
+    const buyerName = `${formData.get("firstName")} ${formData.get("lastName")}`;
+    const buyerEmail = formData.get("email");
+    const recipientName = formData.get("recipientName") || "";
+    const message = formData.get("message") || "";
+
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount, buyerName, buyerEmail, recipientName, message })
+      });
+
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert("Ein Fehler ist aufgetreten: " + (data.error || "Unbekannt"));
+        setIsLoading(false);
+      }
+    } catch (err) {
+      alert("Systemfehler beim Checkout.");
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -90,23 +117,19 @@ export default function GutscheinPage() {
             </div>
 
             <div className={styles.section}>
-              <h3>2. Empfänger & Rechnungsadresse</h3>
+              <h3>2. Persönliche Daten</h3>
               <div className={styles.inputGroup}>
-                <input type="email" placeholder="E-Mail des Empfängers *" required className={styles.input} />
+                <input type="email" name="email" placeholder="Ihre E-Mail-Adresse *" required className={styles.input} />
               </div>
               <div className={styles.row}>
-                <input type="text" placeholder="Vorname *" required className={styles.input} />
-                <input type="text" placeholder="Nachname *" required className={styles.input} />
+                <input type="text" name="firstName" placeholder="Vorname *" required className={styles.input} />
+                <input type="text" name="lastName" placeholder="Nachname *" required className={styles.input} />
               </div>
               <div className={styles.inputGroup}>
-                <input type="text" placeholder="Straße und Hausnummer *" required className={styles.input} />
-              </div>
-              <div className={styles.row}>
-                <input type="text" placeholder="PLZ *" required className={styles.input} />
-                <input type="text" placeholder="Stadt *" required className={styles.input} />
+                <input type="text" name="recipientName" placeholder="Für wen ist der Gutschein? (Optional)" className={styles.input} />
               </div>
               <div className={styles.inputGroup}>
-                <input type="text" placeholder="Land *" required className={styles.input} />
+                <textarea name="message" placeholder="Ihre persönliche Nachricht (Optional)" className={styles.input} rows={3} style={{resize: 'none'}} />
               </div>
             </div>
 
@@ -136,8 +159,8 @@ export default function GutscheinPage() {
               </div>
             </div>
 
-            <button type="submit" className={styles.submitBtn}>
-              Zahlungspflichtig bestellen ({amount} €)
+            <button type="submit" className={styles.submitBtn} disabled={isLoading}>
+              {isLoading ? "Bitte warten..." : `Zahlungspflichtig bestellen (${amount} €)`}
             </button>
           </form>
         </motion.div>

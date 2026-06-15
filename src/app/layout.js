@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
     <html lang="de">
       <body className={`${elmsSans.variable} ${cormorantGaramond.variable} ${greatVibes.variable}`}>
         <Navbar />
-        <main>{children}</main>
+        {children}
       </body>
     </html>
   );
