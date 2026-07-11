@@ -62,8 +62,8 @@ export default function ReservationPage() {
           <h1 className="font-tertiary">Vielen Dank!</h1>
           <p className={styles.subtitle}>Ihre Reservierungsanfrage wurde erfolgreich übermittelt.</p>
         </div>
-        <div style={{textAlign: "center", color: "var(--color-secondary)", marginTop: "2rem", fontSize: "1.2rem"}}>
-          Wir haben Ihnen eine Bestätigungs-E-Mail gesendet und werden uns in Kürze bei Ihnen melden.
+        <div style={{textAlign: "center", color: "var(--color-secondary)", marginTop: "2rem", fontSize: "1.2rem", padding: "0 1.5rem", lineHeight: "1.6"}}>
+          Ihre Anfrage wird von uns geprüft. Sobald die Reservierung bestätigt ist, erhalten Sie eine E-Mail von uns.
         </div>
       </main>
     );
