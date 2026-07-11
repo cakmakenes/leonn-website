@@ -40,8 +40,8 @@ export default function Home() {
       <section className={styles.hero}>
         <div className={styles.heroBg}>
           <Image 
-            src="/hero-bg.png" 
-            alt="Leonn Restaurant Entrance" 
+            src="/motif.png" 
+            alt="Leonn Background Motif" 
             fill 
             priority
             className={styles.heroImage}
