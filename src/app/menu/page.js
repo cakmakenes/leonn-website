@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import styles from "./page.module.css";
 
 const categories = [
@@ -40,6 +40,7 @@ const menuData = {
 export default function MenuPage() {
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
   const sectionRefs = useRef({});
+  const categoryBtnRefs = useRef({});
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,6 +65,17 @@ export default function MenuPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const activeBtn = categoryBtnRefs.current[activeCategory];
+    if (activeBtn) {
+      activeBtn.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    }
+  }, [activeCategory]);
+
   const scrollToCategory = (id) => {
     const element = sectionRefs.current[id];
     if (element) {
@@ -83,18 +95,42 @@ export default function MenuPage() {
 
       {/* Sticky Category Bar */}
       <nav className={styles.stickyBar}>
-        <div className={styles.categoryScroll}>
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => scrollToCategory(cat.id)}
-              className={`${styles.categoryBtn} ${
-                activeCategory === cat.id ? styles.active : ""
-              }`}
-            >
-              {cat.name}
-            </button>
-          ))}
+        <div className={styles.stickyBarContent}>
+          {/* Active Category Display */}
+          <div className={styles.activeCategoryDisplay}>
+            <span className={styles.indicatorLabel}>Speisekarte</span>
+            <span className={styles.indicatorDivider}>|</span>
+            <div className={styles.activeCategoryBanner}>
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={activeCategory}
+                  initial={{ opacity: 0, x: -15 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 15 }}
+                  transition={{ duration: 0.25, ease: "easeInOut" }}
+                  className={styles.bannerText}
+                >
+                  {categories.find((cat) => cat.id === activeCategory)?.name}
+                </motion.span>
+              </AnimatePresence>
+            </div>
+          </div>
+
+          {/* Categories Navigation */}
+          <div className={styles.categoryScroll}>
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                ref={(el) => (categoryBtnRefs.current[cat.id] = el)}
+                onClick={() => scrollToCategory(cat.id)}
+                className={`${styles.categoryBtn} ${
+                  activeCategory === cat.id ? styles.active : ""
+                }`}
+              >
+                {cat.name}
+              </button>
+            ))}
+          </div>
         </div>
       </nav>
 

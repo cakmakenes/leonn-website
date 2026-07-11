@@ -31,11 +31,53 @@
   background-color: rgba(21, 20, 70, 0.95);
   backdrop-filter: blur(10px);
   padding: 1rem 2rem;
+  border-top: 1px solid rgba(219, 189, 130, 0.2);
+  border-bottom: 1px solid rgba(219, 189, 130, 0.2);
+}
+
+.stickyBarContent {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid rgba(219, 189, 130, 0.2);
-  border-bottom: 1px solid rgba(219, 189, 130, 0.2);
+  gap: 2rem;
+}
+
+.activeCategoryDisplay {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-primary), sans-serif;
+}
+
+.indicatorLabel {
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.indicatorDivider {
+  color: var(--color-secondary);
+  font-weight: 300;
+  opacity: 0.6;
+}
+
+.activeCategoryBanner {
+  font-family: var(--font-secondary), serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--color-secondary);
+  min-width: 150px;
+  display: flex;
+  align-items: center;
+}
+
+.bannerText {
+  white-space: nowrap;
 }
 
 .categoryScroll {
@@ -183,11 +225,39 @@
   
   .stickyBar {
     top: 70px;
-    padding: 1rem;
+    padding: 0.75rem 1rem;
   }
-  
+
+  .stickyBarContent {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .activeCategoryDisplay {
+    gap: 0.5rem;
+  }
+
+  .activeCategoryBanner {
+    font-size: 1.4rem;
+    min-width: unset;
+    justify-content: center;
+  }
+
+  .indicatorLabel {
+    font-size: 0.75rem;
+  }
+
+  .categoryScroll {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0.25rem 0;
+    gap: 1.25rem;
+  }
+
   .categoryBtn {
     font-size: 1.2rem;
+    padding-bottom: 0.25rem;
   }
   
   .grid {
