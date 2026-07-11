@@ -163,6 +163,19 @@
 }
 
 @media (max-width: 768px) {
-  .heroContent h1 { font-size: 5rem; }
-  .linkWrapper h2 { font-size: 3rem; }
+  .heroContent h1 { 
+    font-size: 4rem; 
+  }
+  
+  .linkWrapper h2 { 
+    font-size: 2.2rem; 
+    letter-spacing: 3px;
+    padding: 0 1.5rem;
+    line-height: 1.2;
+    word-break: break-word;
+  }
+
+  .hours ul {
+    font-size: 1.1rem;
+  }
 }
