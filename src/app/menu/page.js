@@ -41,10 +41,11 @@ export default function MenuPage() {
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
   const sectionRefs = useRef({});
   const categoryBtnRefs = useRef({});
+  const categoryScrollRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 200; // Offset for sticky header
+      const scrollPosition = window.scrollY + 220; // Adjusted offset for sticky header + navbar
 
       for (const category of categories) {
         const element = sectionRefs.current[category.id];
@@ -66,12 +67,18 @@ export default function MenuPage() {
   }, []);
 
   useEffect(() => {
+    const container = categoryScrollRef.current;
     const activeBtn = categoryBtnRefs.current[activeCategory];
-    if (activeBtn) {
-      activeBtn.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "center",
+    if (container && activeBtn) {
+      const containerWidth = container.offsetWidth;
+      const btnOffsetLeft = activeBtn.offsetLeft;
+      const btnWidth = activeBtn.offsetWidth;
+      
+      const targetScrollLeft = btnOffsetLeft - (containerWidth / 2) + (btnWidth / 2);
+      
+      container.scrollTo({
+        left: targetScrollLeft,
+        behavior: "smooth"
       });
     }
   }, [activeCategory]);
@@ -80,7 +87,7 @@ export default function MenuPage() {
     const element = sectionRefs.current[id];
     if (element) {
       window.scrollTo({
-        top: element.offsetTop - 150, // Offset for sticky header
+        top: element.offsetTop - 210, // Adjusted offset so the section header sits below the sticky bar
         behavior: "smooth",
       });
     }
@@ -117,7 +124,7 @@ export default function MenuPage() {
           </div>
 
           {/* Categories Navigation */}
-          <div className={styles.categoryScroll}>
+          <div ref={categoryScrollRef} className={styles.categoryScroll}>
             {categories.map((cat) => (
               <button
                 key={cat.id}
