@@ -6,34 +6,56 @@ import { motion, AnimatePresence } from "framer-motion";
 import styles from "./page.module.css";
 
 const categories = [
-  { id: "vorspeisen", name: "Vorspeisen" },
-  { id: "hauptgerichte", name: "Hauptgerichte" },
+  { id: "corbalar", name: "Çorbalar" },
+  { id: "kahvalti", name: "Kahvaltı" },
+  { id: "mezze", name: "Mezze" },
+  { id: "izgara", name: "Izgara" },
+  { id: "selection", name: "Selection" },
+  { id: "kuzu", name: "Kuzu" },
   { id: "desserts", name: "Desserts" },
-  { id: "getranke", name: "Getränke" },
+  { id: "homemade_drinks", name: "Homemade drinks" },
 ];
 
 const menuData = {
-  vorspeisen: [
-    { id: 1, name: "Carpaccio vom Rind", description: "Mit Rucola, Parmesan und Trüffelöl", price: "18.50" },
-    { id: 2, name: "Burrata", description: "Mit bunten Kirschtomaten und Basilikumpesto", price: "16.00" },
-    { id: 3, name: "Bruschetta", description: "Geröstetes Brot mit Tomaten, Knoblauch und Olivenöl", price: "9.50" },
+  corbalar: [
+    { id: 1, name: "Linsensuppe (Mercimek)", description: "Traditionelle rote Linsensuppe mit Zitrone und Minzöl", price: "7.50" },
+    { id: 2, name: "Tomatensuppe", description: "Frische Tomatensuppe mit geriebenem Kaşar-Käse und Croutons", price: "8.00" },
   ],
-  hauptgerichte: [
-    { id: 4, name: "Rinderfilet (250g)", description: "Mit Rosmarinkartoffeln und Rotweinjus", price: "42.00" },
-    { id: 5, name: "Lachsfilet", description: "Auf grünem Spargel mit Zitronen-Butter-Sauce", price: "32.00" },
-    { id: 6, name: "Truffel Pasta", description: "Frische Tagliatelle mit schwarzem Trüffel", price: "28.00" },
-    { id: 7, name: "Wiener Schnitzel", description: "Vom Kalb mit Kartffelsalat", price: "26.50" },
+  kahvalti: [
+    { id: 3, name: "Leonn Serpme Kahvaltı", description: "Reichhaltiges türkisches Frühstück (für 2 Personen) mit Käseauswahl, Oliven, Eiervariationen, Pastırma, Honig & Kajmak", price: "38.00" },
+    { id: 4, name: "Menemen", description: "Klassisches Pfannengericht aus Eiern, Tomaten, grünem Paprika und Gewürzen", price: "12.50" },
+    { id: 5, name: "Sucuklu Yumurta", description: "Gebratene türkische Knoblauchwurst mit Spiegeleiern", price: "13.50" },
+  ],
+  mezze: [
+    { id: 6, name: "Hummus", description: "Kichererbsenpüree mit Sesampaste (Tahini), Zitrone und Olivenöl", price: "8.50" },
+    { id: 7, name: "Haydari", description: "Cremiger Joghurt mit Knoblauch, frischer Minze und Olivenöl", price: "7.50" },
+    { id: 8, name: "Babagannuş", description: "Gegrillte Auberginen mit Paprika, Granatapfelsirup und Knoblauch", price: "9.00" },
+    { id: 9, name: "Mezze Teller (gemischt)", description: "Eine feine Auswahl unserer hausgemachten kalten Vorspeisen", price: "19.50" },
+  ],
+  izgara: [
+    { id: 10, name: "Adana Kebap", description: "Scharf gewürzter Hackfleischspieß vom Grill, serviert mit Bulgur und Salat", price: "24.50" },
+    { id: 11, name: "Tavuk Şiş", description: "Marinierter Hähnchenbrustspieß mit Grillgemüse und Reis", price: "21.00" },
+    { id: 12, name: "Urfa Kebap", description: "Mild gewürzter Hackfleischspieß vom Grill, serviert mit Bulgur", price: "24.50" },
+  ],
+  selection: [
+    { id: 13, name: "Leonn Selection Ribeye (300g)", description: "Premium Ribeye Steak vom Rind mit Kräuterbutter und Trüffelpommes", price: "45.00" },
+    { id: 14, name: "T-Bone Steak (500g)", description: "Am Knochen gereiftes Premium Steak mit gegrilltem Spargel", price: "58.00" },
+    { id: 15, name: "Filet Mignon (250g)", description: "Zartes Rinderfilet mit Rotweinjus und Rosmarinkartoffeln", price: "42.00" },
+  ],
+  kuzu: [
+    { id: 16, name: "Kuzu Pirzola", description: "Zarte Lammkoteletts mit Grillgemüse und Rosmarin", price: "32.50" },
+    { id: 17, name: "Kuzu İncik", description: "Langsam geschmorte Lammhaxe auf cremigem Auberginenpüree (Hünkar Beğendi)", price: "29.50" },
+    { id: 18, name: "Kuzu Şiş", description: "Marinierter Lammspieß mit gegrillten Tomaten und Zwiebel-Sumak-Salat", price: "28.00" },
   ],
   desserts: [
-    { id: 8, name: "Tiramisu", description: "Klassisches italienisches Dessert", price: "10.50" },
-    { id: 9, name: "Panna Cotta", description: "Mit frischen Waldbeeren", price: "9.00" },
-    { id: 10, name: "Schokoladenfondant", description: "Mit flüssigem Kern und Vanilleeis", price: "12.00" },
+    { id: 19, name: "Klassisches Baklava", description: "Blätterteiggebäck mit Pistazien und Zuckersirup, serviert mit Maraş-Eis", price: "11.50" },
+    { id: 20, name: "Künefe", description: "Warmes Engelshaar-Gebäck mit geschmolzenem Käse und Sirup", price: "12.50" },
+    { id: 21, name: "San Sebastian Cheesecake", description: "Cremiger, baskischer Käsekuchen mit flüssiger Schokoladensauce", price: "10.50" },
   ],
-  getranke: [
-    { id: 11, name: "San Pellegrino 0.75l", description: "Mineralwasser mit Kohlensäure", price: "7.50" },
-    { id: 12, name: "Coca Cola 0.33l", description: "Erfrischungsgetränk", price: "4.50" },
-    { id: 13, name: "Chardonnay 0.2l", description: "Weißwein, trocken", price: "9.50" },
-    { id: 14, name: "Espresso", description: "Klassischer italienischer Espresso", price: "3.50" },
+  homemade_drinks: [
+    { id: 22, name: "Leonn Minz-Ayran", description: "Erfrischendes Joghurtgetränk mit frischer Minze und Meersalz", price: "5.00" },
+    { id: 23, name: "Hausgemachte Limonade", description: "Frisch gepresste Zitronen-Limonade mit Minze und Erdbeersirup", price: "6.50" },
+    { id: 24, name: "Hausgemachter Pfirsich-Eistee", description: "Frisch gebrühter schwarzer Tee mit Pfirsichpüree und Zitrone", price: "6.00" },
   ],
 };
 
