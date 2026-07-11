@@ -32,7 +32,8 @@
 }
 
 .stickyBar {
-  position: relative;
+  position: sticky;
+  top: 15px; /* Sits at the top of the viewport when scrolled (since navbar hides) */
   z-index: 30;
   max-width: 900px; /* Floating capsule width */
   width: 90%;
@@ -43,6 +44,23 @@
   padding: 0.75rem 1.5rem;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
+  transition: top 0.3s ease;
+}
+
+.hamburgerBtn {
+  background: none;
+  border: none;
+  color: var(--color-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+  margin-right: 0.25rem;
+}
+
+.hamburgerBtn:hover {
+  transform: scale(1.1);
 }
 
 .stickyBarContent {
@@ -229,6 +247,8 @@
   }
   
   .stickyBar {
+    position: sticky;
+    top: 10px; /* Sits near top of the screen on mobile */
     padding: 0.6rem 1rem;
     max-width: 95%;
     width: 92%;

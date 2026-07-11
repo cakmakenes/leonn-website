@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { Menu } from "lucide-react";
 import styles from "./page.module.css";
 
 const categories = [
@@ -127,7 +128,7 @@ export default function MenuPage() {
     const element = sectionRefs.current[id];
     if (element) {
       window.scrollTo({
-        top: element.offsetTop - 140, // Reduced offset since the navbar is more compact when floating
+        top: element.offsetTop - 90, // Adjusted for the 15px gap + floating sticky bar height
         behavior: "smooth",
       });
     }
@@ -145,6 +146,13 @@ export default function MenuPage() {
         <div className={styles.stickyBarContent}>
           {/* Active Category Display */}
           <div className={styles.activeCategoryDisplay}>
+            <button 
+              className={styles.hamburgerBtn}
+              onClick={() => window.dispatchEvent(new CustomEvent("open-hamburger-menu"))}
+              aria-label="Open Menu"
+            >
+              <Menu size={24} />
+            </button>
             <span className={styles.indicatorLabel}>Speisekarte</span>
             <span className={styles.indicatorDivider}>|</span>
             <div className={styles.activeCategoryBanner}>
