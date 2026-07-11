@@ -78,16 +78,19 @@ export default function ReservationPage() {
 
     const newErrors = {};
 
-    // 1. Check if date is in the past
-    if (formData.date && formData.date < minDate) {
+    // 1. Date Validation
+    if (!formData.date) {
+      newErrors.date = "Bitte wählen Sie ein Datum aus.";
+    } else if (formData.date < minDate) {
       newErrors.date = "Das Datum darf nicht in der Vergangenheit liegen.";
     }
 
-    // 2. If date is today, check if time is at least 30 minutes in the future
-    if (formData.date && formData.time && formData.date === minDate) {
+    // 2. Time Validation
+    if (!formData.time) {
+      newErrors.time = "Bitte wählen Sie eine Uhrzeit aus.";
+    } else if (formData.date && formData.time && formData.date === minDate) {
       const [year, month, day] = formData.date.split("-").map(Number);
       const [hour, minute] = formData.time.split(":").map(Number);
-      // Construct date using individual numbers (fully compatible with iOS Safari / Webkit)
       const selectedDateTime = new Date(year, month - 1, day, hour, minute);
       
       const minAllowedDateTime = new Date();
@@ -98,9 +101,42 @@ export default function ReservationPage() {
       }
     }
 
+    // 3. First Name
+    if (!formData.firstName || !formData.firstName.trim()) {
+      newErrors.firstName = "Bitte geben Sie Ihren Vornamen ein.";
+    }
+
+    // 4. Last Name
+    if (!formData.lastName || !formData.lastName.trim()) {
+      newErrors.lastName = "Bitte geben Sie Ihren Nachnamen ein.";
+    }
+
+    // 5. E-Mail
+    if (!formData.email || !formData.email.trim()) {
+      newErrors.email = "Bitte geben Sie Ihre E-Mail-Adresse ein.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
+    }
+
+    // 6. Phone
+    if (!formData.phone || !formData.phone.trim()) {
+      newErrors.phone = "Bitte geben Sie Ihre Telefonnummer ein.";
+    }
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       setIsLoading(false);
+
+      // Smooth scroll to the first element with error and focus it
+      setTimeout(() => {
+        const firstErrorKey = Object.keys(newErrors)[0];
+        const errorElement = document.querySelector(`[name="${firstErrorKey}"]`);
+        if (errorElement) {
+          errorElement.scrollIntoView({ behavior: "smooth", block: "center" });
+          errorElement.focus();
+        }
+      }, 100);
+
       return;
     }
     
@@ -224,11 +260,12 @@ export default function ReservationPage() {
                   name="firstName" 
                   ref={firstNameInputRef}
                   required 
-                  className={styles.input} 
+                  className={`${styles.input} ${errors.firstName ? styles.hasError : ""}`} 
                   value={formData.firstName} 
                   onChange={handleChange}
                   onKeyDown={(e) => handleKeyDown(e, lastNameInputRef)}
                 />
+                {errors.firstName && <span className={styles.errorText}>{errors.firstName}</span>}
               </div>
               <div className={styles.inputGroup}>
                 <label>Nachname *</label>
@@ -237,11 +274,12 @@ export default function ReservationPage() {
                   name="lastName" 
                   ref={lastNameInputRef}
                   required 
-                  className={styles.input} 
+                  className={`${styles.input} ${errors.lastName ? styles.hasError : ""}`} 
                   value={formData.lastName} 
                   onChange={handleChange} 
                   onKeyDown={(e) => handleKeyDown(e, emailInputRef)}
                 />
+                {errors.lastName && <span className={styles.errorText}>{errors.lastName}</span>}
               </div>
             </div>
             <div className={styles.row}>
@@ -252,11 +290,12 @@ export default function ReservationPage() {
                   name="email" 
                   ref={emailInputRef}
                   required 
-                  className={styles.input} 
+                  className={`${styles.input} ${errors.email ? styles.hasError : ""}`} 
                   value={formData.email} 
                   onChange={handleChange} 
                   onKeyDown={(e) => handleKeyDown(e, phoneInputRef)}
                 />
+                {errors.email && <span className={styles.errorText}>{errors.email}</span>}
               </div>
               <div className={styles.inputGroup}>
                 <label>Telefonnummer *</label>
@@ -265,11 +304,12 @@ export default function ReservationPage() {
                   name="phone" 
                   ref={phoneInputRef}
                   required 
-                  className={styles.input} 
+                  className={`${styles.input} ${errors.phone ? styles.hasError : ""}`} 
                   value={formData.phone} 
                   onChange={handleChange} 
                   onKeyDown={(e) => handleKeyDown(e, messageInputRef)}
                 />
+                {errors.phone && <span className={styles.errorText}>{errors.phone}</span>}
               </div>
             </div>
             <div className={styles.inputGroup}>
