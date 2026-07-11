@@ -127,15 +127,13 @@ export default function ReservationPage() {
       setErrors(newErrors);
       setIsLoading(false);
 
-      // Smooth scroll to the first element with error and focus it
-      setTimeout(() => {
-        const firstErrorKey = Object.keys(newErrors)[0];
-        const errorElement = document.querySelector(`[name="${firstErrorKey}"]`);
-        if (errorElement) {
-          errorElement.scrollIntoView({ behavior: "smooth", block: "center" });
-          errorElement.focus();
-        }
-      }, 100);
+      // Execute focus and scroll synchronously so that iOS Safari allows focus redirection
+      const firstErrorKey = Object.keys(newErrors)[0];
+      const errorElement = document.querySelector(`[name="${firstErrorKey}"]`);
+      if (errorElement) {
+        errorElement.scrollIntoView({ behavior: "smooth", block: "center" });
+        errorElement.focus();
+      }
 
       return;
     }
