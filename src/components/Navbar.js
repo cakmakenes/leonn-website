@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import Logo from "./Logo";
@@ -20,6 +20,18 @@ const menuItems = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+
+  // Lock body scroll when hamburger menu is open to optimize rendering performance
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   return (
     <>
@@ -43,7 +55,7 @@ export default function Navbar() {
           <div style={{ width: 32 }}></div>
         </div>
       </nav>
-
+ 
       <AnimatePresence>
         {isOpen && (
           <motion.div 
@@ -62,24 +74,23 @@ export default function Navbar() {
               <X size={40} />
             </button>
             
-            <div className={styles.menuLinks}>
-              {menuItems.map((item, index) => (
-                <motion.div
+            <motion.div 
+              className={styles.menuLinks}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15, duration: 0.3, ease: "easeOut" }}
+            >
+              {menuItems.map((item) => (
+                <Link 
                   key={item.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + index * 0.05 }}
+                  href={item.href} 
+                  className={styles.link}
+                  onClick={() => setIsOpen(false)}
                 >
-                  <Link 
-                    href={item.href} 
-                    className={styles.link}
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                </motion.div>
+                  {item.name}
+                </Link>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

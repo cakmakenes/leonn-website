@@ -92,16 +92,24 @@ export default function MenuPage() {
     const container = categoryScrollRef.current;
     const activeBtn = categoryBtnRefs.current[activeCategory];
     if (container && activeBtn) {
-      const containerWidth = container.offsetWidth;
-      const btnOffsetLeft = activeBtn.offsetLeft;
-      const btnWidth = activeBtn.offsetWidth;
+      const containerRect = container.getBoundingClientRect();
+      const btnRect = activeBtn.getBoundingClientRect();
       
-      const targetScrollLeft = btnOffsetLeft - (containerWidth / 2) + (btnWidth / 2);
+      // Check if button is already fully visible inside the horizontal scrollbar viewport (with a small safety padding)
+      const isVisible = (btnRect.left >= containerRect.left + 20) && (btnRect.right <= containerRect.right - 20);
       
-      container.scrollTo({
-        left: targetScrollLeft,
-        behavior: "smooth"
-      });
+      if (!isVisible) {
+        const containerWidth = container.offsetWidth;
+        const btnOffsetLeft = activeBtn.offsetLeft;
+        const btnWidth = activeBtn.offsetWidth;
+        
+        const targetScrollLeft = btnOffsetLeft - (containerWidth / 2) + (btnWidth / 2);
+        
+        container.scrollTo({
+          left: targetScrollLeft,
+          behavior: "smooth"
+        });
+      }
     }
   }, [activeCategory]);
 
