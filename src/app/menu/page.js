@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 import styles from "./page.module.css";
 
 const categories = [
@@ -61,19 +60,9 @@ const menuData = {
 
 export default function MenuPage() {
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
-  const [isMobile, setIsMobile] = useState(false);
   const sectionRefs = useRef({});
   const categoryBtnRefs = useRef({});
   const categoryScrollRef = useRef(null);
-
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -148,18 +137,9 @@ export default function MenuPage() {
             <span className={styles.indicatorLabel}>Speisekarte</span>
             <span className={styles.indicatorDivider}>|</span>
             <div className={styles.activeCategoryBanner}>
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={activeCategory}
-                  initial={{ opacity: 0, x: -15 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 15 }}
-                  transition={{ duration: 0.25, ease: "easeInOut" }}
-                  className={styles.bannerText}
-                >
-                  {categories.find((cat) => cat.id === activeCategory)?.name}
-                </motion.span>
-              </AnimatePresence>
+              <span className={styles.bannerText}>
+                {categories.find((cat) => cat.id === activeCategory)?.name}
+              </span>
             </div>
           </div>
 
@@ -193,20 +173,13 @@ export default function MenuPage() {
             <h2 className={styles.sectionTitle}>{cat.name}</h2>
             <div className={styles.grid}>
               {menuData[cat.id].map((item) => (
-                <motion.div
-                  key={item.id}
-                  className={styles.card}
-                  initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  whileInView={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-                  viewport={isMobile ? undefined : { once: true, margin: "-50px" }}
-                  transition={isMobile ? { duration: 0 } : undefined}
-                >
+                <div key={item.id} className={styles.card}>
                   <div className={styles.cardHeader}>
                     <h3 className={styles.itemName}>{item.name}</h3>
                     <span className={styles.itemPrice}>{item.price} €</span>
                   </div>
                   <p className={styles.itemDesc}>{item.description}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </section>
