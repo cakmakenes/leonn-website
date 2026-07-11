@@ -34,11 +34,13 @@ export default function GutscheinPage() {
 
     const formData = new FormData(e.target);
     const buyerEmail = formData.get("email")?.trim();
+    const emailRepeat = formData.get("emailRepeat")?.trim();
     const firstName = formData.get("firstName")?.trim();
     const lastName = formData.get("lastName")?.trim();
     const recipientName = formData.get("recipientName")?.trim();
     const recipientEmail = formData.get("recipientEmail")?.trim();
     const message = formData.get("message")?.trim();
+    const agbAccepted = formData.get("agbAccepted");
 
     const newErrors = {};
 
@@ -46,6 +48,12 @@ export default function GutscheinPage() {
       newErrors.email = "Bitte geben Sie Ihre E-Mail-Adresse ein.";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(buyerEmail)) {
       newErrors.email = "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
+    }
+
+    if (!emailRepeat) {
+      newErrors.emailRepeat = "Bitte wiederholen Sie Ihre E-Mail-Adresse.";
+    } else if (buyerEmail !== emailRepeat) {
+      newErrors.emailRepeat = "Die E-Mail-Adressen stimmen nicht überein.";
     }
 
     if (!firstName) {
@@ -60,6 +68,10 @@ export default function GutscheinPage() {
       newErrors.recipientEmail = "Bitte geben Sie die E-Mail-Adresse des Empfängers ein.";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recipientEmail)) {
       newErrors.recipientEmail = "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
+    }
+
+    if (!agbAccepted) {
+      newErrors.agbAccepted = "Bitte akzeptieren Sie die AGB, um fortzufahren.";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -127,6 +139,9 @@ export default function GutscheinPage() {
               <h2 className="font-tertiary">Leonn</h2>
               <div className={styles.cardAmount}>{amount} €</div>
               <p className={styles.cardText}>Gutschein</p>
+              <div style={{ marginTop: "1rem", fontSize: "0.9rem", color: "rgba(255,255,255,0.6)" }}>
+                inkl. 0% MwSt. (Mehrzweck-Gutschein)
+              </div>
             </div>
           </div>
         </div>
@@ -176,6 +191,16 @@ export default function GutscheinPage() {
                   className={`${styles.input} ${errors.email ? styles.hasError : ""}`} 
                 />
                 {errors.email && <span className={styles.errorText}>{errors.email}</span>}
+              </div>
+              <div className={styles.inputGroup}>
+                <input 
+                  type="email" 
+                  name="emailRepeat" 
+                  placeholder="E-Mail-Adresse wiederholen *" 
+                  required 
+                  className={`${styles.input} ${errors.emailRepeat ? styles.hasError : ""}`} 
+                />
+                {errors.emailRepeat && <span className={styles.errorText}>{errors.emailRepeat}</span>}
               </div>
               <div className={styles.row}>
                 <div className={styles.inputGroup}>
@@ -252,6 +277,32 @@ export default function GutscheinPage() {
                   <span>Klarna</span>
                 </label>
               </div>
+            </div>
+
+            <div className={styles.legalSection}>
+              <p className={styles.legalInfoText}>
+                Informationen zur Datenverarbeitung können unserer <a href="/impressum#datenschutz" target="_blank" rel="noopener noreferrer" style={{color: "var(--color-secondary)", textDecoration: "underline"}}>Datenschutzerklärung</a> entnommen werden.
+              </p>
+              
+              <label className={`${styles.legalCheckboxLabel} ${errors.agbAccepted ? styles.hasErrorText : ""}`}>
+                <input 
+                  type="checkbox" 
+                  name="agbAccepted" 
+                  required 
+                  className={styles.checkboxInput}
+                />
+                <span style={{marginLeft: "10px"}}>Ich akzeptiere die <a href="/impressum#agb" target="_blank" rel="noopener noreferrer" style={{color: "var(--color-secondary)", textDecoration: "underline"}}>AGB</a>. *</span>
+              </label>
+              {errors.agbAccepted && <span className={styles.errorText} style={{ marginTop: "5px", marginBottom: "15px" }}>{errors.agbAccepted}</span>}
+              
+              <label className={styles.legalCheckboxLabel} style={{marginTop: "15px", display: "flex", alignItems: "flex-start"}}>
+                <input 
+                  type="checkbox" 
+                  name="marketingConsent" 
+                  className={styles.checkboxInput}
+                />
+                <span style={{marginLeft: "10px", fontSize: "0.95rem", lineHeight: "1.4"}}>Ich möchte per E-Mail exklusive Angebote und Informationen von Leonn Restaurant erhalten. (Optional)</span>
+              </label>
             </div>
 
             <button type="submit" className={styles.submitBtn} disabled={isLoading}>
