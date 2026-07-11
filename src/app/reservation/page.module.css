@@ -154,17 +154,18 @@
   }
 
   .input {
-    padding: 0.85rem 1rem !important; /* Uniform padding on sides */
-    font-size: 1rem;
+    padding: 0.85rem 0.6rem !important;
+    font-size: 0.95rem;
     width: 100%;
     max-width: 100%;
     min-width: 0;
     box-sizing: border-box;
-    height: 3.2rem; /* Uniform height for all inputs */
   }
 
-  textarea.input {
-    height: auto !important;
+  input[type="date"].input,
+  input[type="time"].input {
+    padding: 0.85rem 0.4rem !important;
+    font-size: 0.85rem !important;
   }
 }
 
