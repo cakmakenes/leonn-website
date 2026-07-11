@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import styles from "./page.module.css";
 
@@ -18,14 +18,68 @@ export default function ReservationPage() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  
+  // Dynamic minimum date and time restrictions
+  const [minDate, setMinDate] = useState("");
+  const [minTime, setMinTime] = useState("");
+
+  // Refs for auto-focus transition
+  const dateInputRef = useRef(null);
+  const timeInputRef = useRef(null);
+  const guestsInputRef = useRef(null);
+  const firstNameInputRef = useRef(null);
+  const lastNameInputRef = useRef(null);
+  const emailInputRef = useRef(null);
+  const phoneInputRef = useRef(null);
+  const messageInputRef = useRef(null);
+
+  useEffect(() => {
+    // Calculate today's date in local YYYY-MM-DD
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    setMinDate(`${yyyy}-${mm}-${dd}`);
+
+    // If date is today, calculate minimum time (now + 30 minutes)
+    const updateMinTime = () => {
+      const now = new Date();
+      now.setMinutes(now.getMinutes() + 30);
+      const hh = String(now.getHours()).padStart(2, '0');
+      const min = String(now.getMinutes()).padStart(2, '0');
+      setMinTime(`${hh}:${min}`);
+    };
+
+    updateMinTime();
+    const interval = setInterval(updateMinTime, 60000); // Keep it updated every minute
+    return () => clearInterval(interval);
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleKeyDown = (e, nextRef) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      nextRef.current?.focus();
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+
+    // Validate that selected date/time is at least 30 minutes in the future
+    const selectedDateTime = new Date(`${formData.date}T${formData.time}`);
+    const minAllowedDateTime = new Date();
+    minAllowedDateTime.setMinutes(minAllowedDateTime.getMinutes() + 30);
+    
+    if (selectedDateTime < minAllowedDateTime) {
+      alert("Für Reservierungen am selben Tag muss die Uhrzeit mindestens 30 Minuten in der Zukunft liegen.");
+      setIsLoading(false);
+      return;
+    }
     
     try {
       const res = await fetch("/api/reservation", {
@@ -92,10 +146,17 @@ export default function ReservationPage() {
                 <input 
                   type="date" 
                   name="date" 
+                  ref={dateInputRef}
+                  min={minDate}
                   required 
                   className={styles.input}
                   value={formData.date}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    handleChange(e);
+                    if (e.target.value) {
+                      setTimeout(() => timeInputRef.current?.focus(), 250);
+                    }
+                  }}
                 />
               </div>
               <div className={styles.inputGroup}>
@@ -103,19 +164,30 @@ export default function ReservationPage() {
                 <input 
                   type="time" 
                   name="time" 
+                  ref={timeInputRef}
+                  min={formData.date === minDate ? minTime : undefined}
                   required 
                   className={styles.input}
                   value={formData.time}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    handleChange(e);
+                    if (e.target.value) {
+                      setTimeout(() => guestsInputRef.current?.focus(), 250);
+                    }
+                  }}
                 />
               </div>
               <div className={styles.inputGroup}>
                 <label>Personen *</label>
                 <select 
                   name="guests" 
+                  ref={guestsInputRef}
                   className={styles.input}
                   value={formData.guests}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    handleChange(e);
+                    setTimeout(() => firstNameInputRef.current?.focus(), 250);
+                  }}
                 >
                   {[1,2,3,4,5,6,7,8,9,10,11,12].map(n => (
                     <option key={n} value={n}>{n} {n === 1 ? 'Person' : 'Personen'}</option>
@@ -131,27 +203,64 @@ export default function ReservationPage() {
             <div className={styles.row}>
               <div className={styles.inputGroup}>
                 <label>Vorname *</label>
-                <input type="text" name="firstName" required className={styles.input} value={formData.firstName} onChange={handleChange} />
+                <input 
+                  type="text" 
+                  name="firstName" 
+                  ref={firstNameInputRef}
+                  required 
+                  className={styles.input} 
+                  value={formData.firstName} 
+                  onChange={handleChange}
+                  onKeyDown={(e) => handleKeyDown(e, lastNameInputRef)}
+                />
               </div>
               <div className={styles.inputGroup}>
                 <label>Nachname *</label>
-                <input type="text" name="lastName" required className={styles.input} value={formData.lastName} onChange={handleChange} />
+                <input 
+                  type="text" 
+                  name="lastName" 
+                  ref={lastNameInputRef}
+                  required 
+                  className={styles.input} 
+                  value={formData.lastName} 
+                  onChange={handleChange} 
+                  onKeyDown={(e) => handleKeyDown(e, emailInputRef)}
+                />
               </div>
             </div>
             <div className={styles.row}>
               <div className={styles.inputGroup}>
                 <label>E-Mail *</label>
-                <input type="email" name="email" required className={styles.input} value={formData.email} onChange={handleChange} />
+                <input 
+                  type="email" 
+                  name="email" 
+                  ref={emailInputRef}
+                  required 
+                  className={styles.input} 
+                  value={formData.email} 
+                  onChange={handleChange} 
+                  onKeyDown={(e) => handleKeyDown(e, phoneInputRef)}
+                />
               </div>
               <div className={styles.inputGroup}>
                 <label>Telefonnummer *</label>
-                <input type="tel" name="phone" required className={styles.input} value={formData.phone} onChange={handleChange} />
+                <input 
+                  type="tel" 
+                  name="phone" 
+                  ref={phoneInputRef}
+                  required 
+                  className={styles.input} 
+                  value={formData.phone} 
+                  onChange={handleChange} 
+                  onKeyDown={(e) => handleKeyDown(e, messageInputRef)}
+                />
               </div>
             </div>
             <div className={styles.inputGroup}>
               <label>Anmerkungen / Wünsche</label>
               <textarea 
                 name="message" 
+                ref={messageInputRef}
                 rows="4" 
                 className={styles.input} 
                 placeholder="Z.B. Allergien, Geburtstag..."
