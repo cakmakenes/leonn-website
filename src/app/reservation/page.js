@@ -198,7 +198,7 @@ export default function ReservationPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form className={styles.form} onSubmit={handleSubmit} noValidate>
           
           <div className={styles.section}>
             <h3>1. Wann und wie viele?</h3>
