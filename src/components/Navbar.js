@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import Logo from "./Logo";
-import { motion, AnimatePresence } from "framer-motion";
 import styles from "./Navbar.module.css";
 
 const menuItems = [
@@ -56,44 +55,28 @@ export default function Navbar() {
         </div>
       </nav>
  
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div 
-            className={styles.overlay}
-            initial={{ x: "-100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "-100%" }}
-            transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
-            style={{ willChange: "transform" }}
-          >
-            <button 
-              className={styles.closeBtn}
+      <div className={`${styles.overlay} ${isOpen ? styles.open : ""}`}>
+        <button 
+          className={styles.closeBtn}
+          onClick={() => setIsOpen(false)}
+          aria-label="Close Menu"
+        >
+          <X size={40} />
+        </button>
+        
+        <div className={styles.menuLinks}>
+          {menuItems.map((item) => (
+            <Link 
+              key={item.name}
+              href={item.href} 
+              className={styles.link}
               onClick={() => setIsOpen(false)}
-              aria-label="Close Menu"
             >
-              <X size={40} />
-            </button>
-            
-            <motion.div 
-              className={styles.menuLinks}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15, duration: 0.3, ease: "easeOut" }}
-            >
-              {menuItems.map((item) => (
-                <Link 
-                  key={item.name}
-                  href={item.href} 
-                  className={styles.link}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              {item.name}
+            </Link>
+          ))}
+        </div>
+      </div>
     </>
   );
 }
