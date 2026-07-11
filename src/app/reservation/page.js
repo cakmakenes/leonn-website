@@ -33,7 +33,11 @@ export default function ReservationPage() {
   const phoneInputRef = useRef(null);
   const messageInputRef = useRef(null);
 
+  const [isMounted, setIsMounted] = useState(false);
+
   useEffect(() => {
+    setIsMounted(true);
+    
     // Calculate today's date in local YYYY-MM-DD
     const today = new Date();
     const yyyy = today.getFullYear();
@@ -109,6 +113,10 @@ export default function ReservationPage() {
     }
   };
 
+  if (!isMounted) {
+    return null;
+  }
+
   if (success) {
     return (
       <main className={styles.container}>
@@ -151,12 +159,7 @@ export default function ReservationPage() {
                   required 
                   className={styles.input}
                   value={formData.date}
-                  onChange={(e) => {
-                    handleChange(e);
-                    if (e.target.value) {
-                      setTimeout(() => timeInputRef.current?.focus(), 250);
-                    }
-                  }}
+                  onChange={handleChange}
                 />
               </div>
               <div className={styles.inputGroup}>
@@ -169,12 +172,7 @@ export default function ReservationPage() {
                   required 
                   className={styles.input}
                   value={formData.time}
-                  onChange={(e) => {
-                    handleChange(e);
-                    if (e.target.value) {
-                      setTimeout(() => guestsInputRef.current?.focus(), 250);
-                    }
-                  }}
+                  onChange={handleChange}
                 />
               </div>
               <div className={styles.inputGroup}>
@@ -184,10 +182,7 @@ export default function ReservationPage() {
                   ref={guestsInputRef}
                   className={styles.input}
                   value={formData.guests}
-                  onChange={(e) => {
-                    handleChange(e);
-                    setTimeout(() => firstNameInputRef.current?.focus(), 250);
-                  }}
+                  onChange={handleChange}
                 >
                   {[1,2,3,4,5,6,7,8,9,10,11,12].map(n => (
                     <option key={n} value={n}>{n} {n === 1 ? 'Person' : 'Personen'}</option>
