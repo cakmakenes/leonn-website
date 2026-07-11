@@ -79,13 +79,17 @@ export default function ReservationPage() {
     const newErrors = {};
 
     // 1. Check if date is in the past
-    if (formData.date < minDate) {
+    if (formData.date && formData.date < minDate) {
       newErrors.date = "Das Datum darf nicht in der Vergangenheit liegen.";
     }
 
     // 2. If date is today, check if time is at least 30 minutes in the future
-    if (formData.date === minDate) {
-      const selectedDateTime = new Date(`${formData.date}T${formData.time}`);
+    if (formData.date && formData.time && formData.date === minDate) {
+      const [year, month, day] = formData.date.split("-").map(Number);
+      const [hour, minute] = formData.time.split(":").map(Number);
+      // Construct date using individual numbers (fully compatible with iOS Safari / Webkit)
+      const selectedDateTime = new Date(year, month - 1, day, hour, minute);
+      
       const minAllowedDateTime = new Date();
       minAllowedDateTime.setMinutes(minAllowedDateTime.getMinutes() + 30);
 

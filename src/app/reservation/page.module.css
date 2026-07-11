@@ -139,9 +139,9 @@
   }
   
   .formWrapper {
-    padding: 2rem 1.25rem;
+    padding: 2rem 1rem;
     margin: 0 auto;
-    width: 92%;
+    width: 95%;
     max-width: 100%;
     box-sizing: border-box;
   }
@@ -154,12 +154,18 @@
   }
 
   .input {
-    padding: 0.85rem;
+    padding: 0.85rem 0.6rem !important;
     font-size: 0.95rem;
     width: 100%;
     max-width: 100%;
     min-width: 0;
     box-sizing: border-box;
+  }
+
+  input[type="date"].input,
+  input[type="time"].input {
+    padding: 0.85rem 0.4rem !important;
+    font-size: 0.85rem !important;
   }
 }
 
