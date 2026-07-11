@@ -226,6 +226,8 @@
   .stickyBar {
     top: 108px;
     padding: 0.75rem 1rem;
+    backdrop-filter: none;
+    background-color: rgb(21, 20, 70); /* Solid background to save mobile GPU */
   }
 
   .stickyBarContent {

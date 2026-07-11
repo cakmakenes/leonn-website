@@ -61,9 +61,19 @@ const menuData = {
 
 export default function MenuPage() {
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
+  const [isMobile, setIsMobile] = useState(false);
   const sectionRefs = useRef({});
   const categoryBtnRefs = useRef({});
   const categoryScrollRef = useRef(null);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -83,7 +93,7 @@ export default function MenuPage() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll(); // Check on mount
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -186,9 +196,10 @@ export default function MenuPage() {
                 <motion.div
                   key={item.id}
                   className={styles.card}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
+                  initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  whileInView={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+                  viewport={isMobile ? undefined : { once: true, margin: "-50px" }}
+                  transition={isMobile ? { duration: 0 } : undefined}
                 >
                   <div className={styles.cardHeader}>
                     <h3 className={styles.itemName}>{item.name}</h3>
