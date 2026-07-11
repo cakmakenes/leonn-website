@@ -110,13 +110,24 @@ export default function MenuPage() {
         });
       }
     }
+    
+    // Notify the Navbar of the category change
+    window.dispatchEvent(new CustomEvent("menu-category-change", { detail: activeCategory }));
   }, [activeCategory]);
+
+  useEffect(() => {
+    const handleScrollEvent = (e) => {
+      scrollToCategory(e.detail);
+    };
+    window.addEventListener("scroll-to-menu-category", handleScrollEvent);
+    return () => window.removeEventListener("scroll-to-menu-category", handleScrollEvent);
+  }, []);
 
   const scrollToCategory = (id) => {
     const element = sectionRefs.current[id];
     if (element) {
       window.scrollTo({
-        top: element.offsetTop - 210, // Adjusted offset so the section header sits below the sticky bar
+        top: element.offsetTop - 140, // Reduced offset since the navbar is more compact when floating
         behavior: "smooth",
       });
     }

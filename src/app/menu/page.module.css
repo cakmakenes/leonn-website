@@ -32,8 +32,7 @@
 }
 
 .stickyBar {
-  position: sticky;
-  top: 120px; /* Sits below the 108px navbar with spacing */
+  position: relative;
   z-index: 30;
   max-width: 900px; /* Floating capsule width */
   width: 90%;
@@ -230,7 +229,6 @@
   }
   
   .stickyBar {
-    top: 115px; /* Sits below the navbar on mobile */
     padding: 0.6rem 1rem;
     max-width: 95%;
     width: 92%;

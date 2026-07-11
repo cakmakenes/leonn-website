@@ -1,11 +1,14 @@
 .navbar {
   position: fixed;
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
   padding: 1.5rem;
   z-index: 40;
   background: linear-gradient(to bottom, rgba(21, 20, 70, 0.9), transparent);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: top, width, padding, border-radius, background-color;
 }
 
 .navContainer {
@@ -35,6 +38,14 @@
   z-index: 1001;
   display: flex;
   align-items: center;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  will-change: opacity, transform;
+}
+
+.logoWrapper.hidden {
+  opacity: 0;
+  transform: scale(0.95) translateY(-5px);
+  pointer-events: none;
 }
 
 .svgLogo {
@@ -119,4 +130,105 @@
 
 .link:hover {
   color: var(--color-secondary);
+}
+
+/* Floating Navbar Capsule Styles */
+.navbar.floating {
+  top: 15px;
+  width: 90%;
+  max-width: 1200px;
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  background-color: rgba(21, 20, 70, 0.95);
+  border: 1px solid rgba(219, 189, 130, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.navbar.floating.menuFloating {
+  max-width: 900px;
+}
+
+.navbarCategories {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 650px;
+  animation: fadeInCategories 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInCategories {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.categoryScroll {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  width: 100%;
+}
+
+.categoryScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.categoryBtn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  color: rgba(255, 255, 255, 0.75);
+  font-family: var(--font-primary), sans-serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+  padding: 0.35rem 0.85rem;
+}
+
+.categoryBtn:hover {
+  color: var(--color-white);
+  border-color: rgba(219, 189, 130, 0.5);
+  background: rgba(219, 189, 130, 0.05);
+}
+
+.categoryBtn.active {
+  color: var(--color-black);
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  font-weight: 600;
+}
+
+/* Responsiveness for Floating Navbar */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+  }
+
+  .navbar.floating {
+    top: 10px;
+    width: 94%;
+    padding: 0.4rem 1rem;
+    border-radius: 30px;
+  }
+
+  .categoryScroll {
+    gap: 0.4rem;
+  }
+
+  .categoryBtn {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.75rem;
+  }
 }
