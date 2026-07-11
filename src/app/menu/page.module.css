@@ -7,73 +7,80 @@
 
 .header {
   text-align: center;
-  padding: 4rem 2rem;
+  padding: 8rem 2rem 6rem 2rem;
+  background-image: linear-gradient(to bottom, rgba(21, 20, 70, 0.55), rgba(21, 20, 70, 0.95)), url('/menu-header-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid rgba(219, 189, 130, 0.15);
 }
 
 .header h1 {
   font-size: 5rem;
   color: var(--color-secondary);
   margin-bottom: 1rem;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .subtitle {
   font-family: var(--font-primary), sans-serif;
   font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.9);
   letter-spacing: 2px;
   text-transform: uppercase;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .stickyBar {
   position: sticky;
-  top: 108px; /* Below the 108px tall fixed navbar */
+  top: 120px; /* Sits below the 108px navbar with spacing */
   z-index: 30;
+  max-width: 900px; /* Floating capsule width */
+  width: 90%;
+  margin: -2.5rem auto 4rem auto; /* Pulls it up to float over the header boundary */
   background-color: rgba(21, 20, 70, 0.95);
+  border: 1px solid rgba(219, 189, 130, 0.25);
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
-  padding: 1rem 2rem;
-  border-top: 1px solid rgba(219, 189, 130, 0.2);
-  border-bottom: 1px solid rgba(219, 189, 130, 0.2);
 }
 
 .stickyBarContent {
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
+  width: 100%;
 }
 
 .activeCategoryDisplay {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  flex-shrink: 0;
   font-family: var(--font-primary), sans-serif;
 }
 
 .indicatorLabel {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .indicatorDivider {
   color: var(--color-secondary);
-  font-weight: 300;
-  opacity: 0.6;
+  opacity: 0.4;
 }
 
 .activeCategoryBanner {
   font-family: var(--font-secondary), serif;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: var(--color-secondary);
-  min-width: 150px;
-  display: flex;
-  align-items: center;
+  white-space: nowrap;
 }
 
 .bannerText {
@@ -82,10 +89,12 @@
 
 .categoryScroll {
   display: flex;
-  gap: 2rem;
+  gap: 0.75rem;
   overflow-x: auto;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none;  /* IE and Edge */
+  flex-grow: 1;
+  justify-content: flex-end;
 }
 
 .categoryScroll::-webkit-scrollbar {
@@ -93,39 +102,31 @@
 }
 
 .categoryBtn {
-  background: none;
-  border: none;
-  color: rgba(255, 255, 255, 0.6);
-  font-family: var(--font-secondary), serif;
-  font-size: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  color: rgba(255, 255, 255, 0.75);
+  font-family: var(--font-primary), sans-serif;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.3s ease;
-  padding-bottom: 0.5rem;
-  position: relative;
-}
-
-.categoryBtn::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0%;
-  height: 2px;
-  background-color: var(--color-secondary);
-  transition: width 0.3s ease;
+  transition: all 0.25s ease;
+  padding: 0.4rem 1rem;
 }
 
 .categoryBtn:hover {
   color: var(--color-white);
+  border-color: rgba(219, 189, 130, 0.5);
+  background: rgba(219, 189, 130, 0.05);
 }
 
 .categoryBtn.active {
-  color: var(--color-secondary);
-}
-
-.categoryBtn.active::after {
-  width: 100%;
+  color: var(--color-black);
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  font-weight: 600;
 }
 
 
@@ -219,29 +220,41 @@
 
 /* Responsiveness */
 @media (max-width: 768px) {
+  .header {
+    padding: 6rem 1rem 4rem 1rem;
+    background-image: linear-gradient(to bottom, rgba(21, 20, 70, 0.6), rgba(21, 20, 70, 0.98)), url('/menu-header-bg.png');
+  }
+
   .header h1 {
-    font-size: 3.5rem;
+    font-size: 3rem;
   }
   
   .stickyBar {
-    top: 108px;
-    padding: 0.75rem 1rem;
+    top: 115px; /* Sits below the navbar on mobile */
+    padding: 0.6rem 1rem;
+    max-width: 95%;
+    width: 92%;
+    border-radius: 30px;
+    margin: -2rem auto 2.5rem auto; /* Floating offset over the header border */
     backdrop-filter: none;
     background-color: rgb(21, 20, 70); /* Solid background to save mobile GPU */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
   }
 
   .stickyBarContent {
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.4rem;
     align-items: center;
   }
 
   .activeCategoryDisplay {
     gap: 0.5rem;
+    justify-content: center;
+    width: 100%;
   }
 
   .activeCategoryBanner {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     min-width: unset;
     justify-content: center;
   }
@@ -253,13 +266,14 @@
   .categoryScroll {
     width: 100%;
     justify-content: flex-start;
-    padding: 0.25rem 0;
-    gap: 1.25rem;
+    padding: 0.2rem 0;
+    gap: 0.5rem;
   }
 
   .categoryBtn {
-    font-size: 1.2rem;
-    padding-bottom: 0.25rem;
+    font-size: 0.8rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 15px;
   }
   
   .grid {
