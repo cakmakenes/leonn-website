@@ -93,6 +93,13 @@
   transition: border-color 0.3s ease;
 }
 
+.input::-webkit-date-and-time-value {
+  margin: 0;
+  padding: 0;
+  min-height: 1.5em;
+  text-align: left;
+}
+
 .input:focus {
   border-color: var(--color-secondary);
 }
@@ -133,16 +140,39 @@
   
   .formWrapper {
     padding: 2rem 1.25rem;
-    margin: 0 0.75rem;
+    margin: 0 auto;
+    width: 92%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   
   .row {
     grid-template-columns: 1fr;
     gap: 1.25rem;
+    width: 100%;
+    max-width: 100%;
   }
 
   .input {
     padding: 0.85rem;
     font-size: 0.95rem;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
   }
+}
+
+.input.hasError {
+  border-color: #ff4d4d !important;
+  box-shadow: 0 0 5px rgba(255, 77, 77, 0.3) !important;
+}
+
+.errorText {
+  color: #ff4d4d;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  font-family: var(--font-primary), sans-serif;
+  text-align: left;
+  display: block;
 }

@@ -18,6 +18,7 @@ export default function ReservationPage() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [errors, setErrors] = useState({});
   
   // Dynamic minimum date and time restrictions
   const [minDate, setMinDate] = useState("");
@@ -73,14 +74,28 @@ export default function ReservationPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setErrors({});
 
-    // Validate that selected date/time is at least 30 minutes in the future
-    const selectedDateTime = new Date(`${formData.date}T${formData.time}`);
-    const minAllowedDateTime = new Date();
-    minAllowedDateTime.setMinutes(minAllowedDateTime.getMinutes() + 30);
-    
-    if (selectedDateTime < minAllowedDateTime) {
-      alert("Für Reservierungen am selben Tag muss die Uhrzeit mindestens 30 Minuten in der Zukunft liegen.");
+    const newErrors = {};
+
+    // 1. Check if date is in the past
+    if (formData.date < minDate) {
+      newErrors.date = "Das Datum darf nicht in der Vergangenheit liegen.";
+    }
+
+    // 2. If date is today, check if time is at least 30 minutes in the future
+    if (formData.date === minDate) {
+      const selectedDateTime = new Date(`${formData.date}T${formData.time}`);
+      const minAllowedDateTime = new Date();
+      minAllowedDateTime.setMinutes(minAllowedDateTime.getMinutes() + 30);
+
+      if (selectedDateTime < minAllowedDateTime) {
+        newErrors.time = "Für Reservierungen am selben Tag muss die Uhrzeit mindestens 30 Minuten in der Zukunft liegen.";
+      }
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       setIsLoading(false);
       return;
     }
@@ -157,10 +172,11 @@ export default function ReservationPage() {
                   ref={dateInputRef}
                   min={minDate}
                   required 
-                  className={styles.input}
+                  className={`${styles.input} ${errors.date ? styles.hasError : ""}`}
                   value={formData.date}
                   onChange={handleChange}
                 />
+                {errors.date && <span className={styles.errorText}>{errors.date}</span>}
               </div>
               <div className={styles.inputGroup}>
                 <label>Uhrzeit *</label>
@@ -170,10 +186,11 @@ export default function ReservationPage() {
                   ref={timeInputRef}
                   min={formData.date === minDate ? minTime : undefined}
                   required 
-                  className={styles.input}
+                  className={`${styles.input} ${errors.time ? styles.hasError : ""}`}
                   value={formData.time}
                   onChange={handleChange}
                 />
+                {errors.time && <span className={styles.errorText}>{errors.time}</span>}
               </div>
               <div className={styles.inputGroup}>
                 <label>Personen *</label>
