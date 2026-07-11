@@ -39,20 +39,23 @@ export const sendReservationEmail = async (reservationDetails) => {
 };
 
 export const sendGutscheinEmail = async (gutscheinDetails, pdfBuffer) => {
-  const { buyerName, buyerEmail, recipientName, amount, code, message } = gutscheinDetails;
+  const { buyerName, buyerEmail, recipientName, recipientEmail, amount, code, message } = gutscheinDetails;
   
-  const mailOptions = {
+  // 1. Send voucher to recipient
+  const recipientMailOptions = {
     from: `"Leonn Restaurant" <${process.env.SMTP_USER || "info@leonnrestaurant.com"}>`,
-    to: buyerEmail,
-    subject: `Ihr Leonn Gutschein (${amount}€)`,
+    to: recipientEmail,
+    subject: `Ein Geschenk für Sie! Gutschein - Leonn Restaurant`,
     html: `
-      <h2>Hallo ${buyerName},</h2>
-      <p>Vielen Dank für Ihren Gutscheinkauf im Wert von ${amount}€.</p>
-      <p>Im Anhang finden Sie Ihren Gutschein als PDF-Datei. Der Code lautet: <strong>${code}</strong></p>
-      ${recipientName ? `<p>Dieser Gutschein ist für: ${recipientName}</p>` : ""}
-      ${message ? `<p>Ihre Nachricht: "${message}"</p>` : ""}
+      <h2>Hallo ${recipientName || "Gast"},</h2>
+      <p><strong>${buyerName}</strong> hat Ihnen einen Gutschein für das Leonn Restaurant im Wert von <strong>${amount}€</strong> geschenkt!</p>
+      <p>Im Anhang finden Sie Ihren Gutschein als PDF-Datei mit einem QR-Code.</p>
+      ${message ? `<p>Persönliche Nachricht: <em>"${message}"</em></p>` : ""}
       <br/>
-      <p>Wir freuen uns darauf, Sie oder den Beschenkten bald im Leonn Restaurant begrüßen zu dürfen!</p>
+      <p>Sie können diesen Gutschein einfach auf Ihrem Handy beim Restaurantbesuch vorzeigen oder ausdrucken.</p>
+      <p>Wir freuen uns auf Ihren Besuch!</p>
+      <br/>
+      <p>Mit freundlichen Grüßen,<br/>Ihr Leonn Team</p>
     `,
     attachments: [
       {
@@ -63,7 +66,25 @@ export const sendGutscheinEmail = async (gutscheinDetails, pdfBuffer) => {
     ],
   };
 
-  await transporter.sendMail(mailOptions);
+  await transporter.sendMail(recipientMailOptions);
+
+  // 2. Send purchase confirmation to buyer
+  const buyerMailOptions = {
+    from: `"Leonn Restaurant" <${process.env.SMTP_USER || "info@leonnrestaurant.com"}>`,
+    to: buyerEmail,
+    subject: `Kaufbestätigung & Zahlungsbeleg - Leonn Restaurant Gutschein`,
+    html: `
+      <h2>Hallo ${buyerName},</h2>
+      <p>Vielen Dank für Ihren Gutscheinkauf im Wert von <strong>${amount}€</strong>.</p>
+      <p>Der Gutschein wurde erfolgreich an <strong>${recipientName} (${recipientEmail})</strong> gesendet.</p>
+      <p>Dies ist Ihre Kaufbestätigung (%0 MwSt gemäß § 3 Abs. 15 UStG - Mehrzweck-Gutschein).</p>
+      <p>Gutschein-Code: <strong>${code}</strong></p>
+      <br/>
+      <p>Mit freundlichen Grüßen,<br/>Ihr Leonn Team</p>
+    `
+  };
+
+  await transporter.sendMail(buyerMailOptions);
 };
 
 export const sendAdminNotificationEmail = async (reservationDetails, approvalUrl, rejectUrl) => {

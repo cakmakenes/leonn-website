@@ -3,14 +3,14 @@ import stripe from "@/lib/stripe";
 
 export async function POST(req) {
   try {
-    const { amount, buyerName, buyerEmail, recipientName, message } = await req.json();
+    const { amount, buyerName, buyerEmail, recipientName, recipientEmail, message } = await req.json();
 
-    if (!amount || !buyerName || !buyerEmail) {
+    if (!amount || !buyerName || !buyerEmail || !recipientEmail) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
     const session = await stripe.checkout.sessions.create({
-      // Stripe Dashboard'da aktif olan ödeme yöntemleri otomatik gelir (Kart, PayPal, Klarna vb.)
+      billing_address_collection: "required",
       line_items: [
         {
           price_data: {
@@ -32,6 +32,7 @@ export async function POST(req) {
         buyerName,
         buyerEmail,
         recipientName: recipientName || "",
+        recipientEmail: recipientEmail || "",
         message: message || "",
       },
     });

@@ -11,6 +11,8 @@ export default function GutscheinPage() {
   const [amount, setAmount] = useState(50);
   const [customAmount, setCustomAmount] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("paypal");
+  const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleCustomAmountChange = (e) => {
     const val = e.target.value;
@@ -25,23 +27,70 @@ export default function GutscheinPage() {
     setCustomAmount("");
   };
 
-  const [isLoading, setIsLoading] = useState(false);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    
+    setErrors({});
+
     const formData = new FormData(e.target);
-    const buyerName = `${formData.get("firstName")} ${formData.get("lastName")}`;
-    const buyerEmail = formData.get("email");
-    const recipientName = formData.get("recipientName") || "";
-    const message = formData.get("message") || "";
+    const buyerEmail = formData.get("email")?.trim();
+    const firstName = formData.get("firstName")?.trim();
+    const lastName = formData.get("lastName")?.trim();
+    const recipientName = formData.get("recipientName")?.trim();
+    const recipientEmail = formData.get("recipientEmail")?.trim();
+    const message = formData.get("message")?.trim();
+
+    const newErrors = {};
+
+    if (!buyerEmail) {
+      newErrors.email = "Bitte geben Sie Ihre E-Mail-Adresse ein.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(buyerEmail)) {
+      newErrors.email = "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
+    }
+
+    if (!firstName) {
+      newErrors.firstName = "Bitte geben Sie Ihren Vornamen ein.";
+    }
+
+    if (!lastName) {
+      newErrors.lastName = "Bitte geben Sie Ihren Nachnamen ein.";
+    }
+
+    if (!recipientEmail) {
+      newErrors.recipientEmail = "Bitte geben Sie die E-Mail-Adresse des Empfängers ein.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recipientEmail)) {
+      newErrors.recipientEmail = "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      setIsLoading(false);
+
+      // Scroll to the first error element
+      const firstErrorKey = Object.keys(newErrors)[0];
+      const errorElement = document.querySelector(`[name="${firstErrorKey}"]`);
+      if (errorElement) {
+        const parentGroup = errorElement.closest(`.${styles.inputGroup}`) || errorElement;
+        parentGroup.scrollIntoView({ behavior: "auto", block: "center" });
+        errorElement.focus();
+      }
+      return;
+    }
+
+    const buyerName = `${firstName} ${lastName}`;
 
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount, buyerName, buyerEmail, recipientName, message })
+        body: JSON.stringify({
+          amount,
+          buyerName,
+          buyerEmail,
+          recipientName,
+          recipientEmail,
+          message
+        })
       });
 
       const data = await res.json();
@@ -87,7 +136,7 @@ export default function GutscheinPage() {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
         >
-          <form className={styles.form} onSubmit={handleSubmit}>
+          <form className={styles.form} onSubmit={handleSubmit} noValidate>
             
             <div className={styles.section}>
               <h3>1. Betrag wählen</h3>
@@ -119,17 +168,63 @@ export default function GutscheinPage() {
             <div className={styles.section}>
               <h3>2. Persönliche Daten</h3>
               <div className={styles.inputGroup}>
-                <input type="email" name="email" placeholder="Ihre E-Mail-Adresse *" required className={styles.input} />
+                <input 
+                  type="email" 
+                  name="email" 
+                  placeholder="Ihre E-Mail-Adresse *" 
+                  required 
+                  className={`${styles.input} ${errors.email ? styles.hasError : ""}`} 
+                />
+                {errors.email && <span className={styles.errorText}>{errors.email}</span>}
               </div>
               <div className={styles.row}>
-                <input type="text" name="firstName" placeholder="Vorname *" required className={styles.input} />
-                <input type="text" name="lastName" placeholder="Nachname *" required className={styles.input} />
+                <div className={styles.inputGroup}>
+                  <input 
+                    type="text" 
+                    name="firstName" 
+                    placeholder="Vorname *" 
+                    required 
+                    className={`${styles.input} ${errors.firstName ? styles.hasError : ""}`} 
+                  />
+                  {errors.firstName && <span className={styles.errorText}>{errors.firstName}</span>}
+                </div>
+                <div className={styles.inputGroup}>
+                  <input 
+                    type="text" 
+                    name="lastName" 
+                    placeholder="Nachname *" 
+                    required 
+                    className={`${styles.input} ${errors.lastName ? styles.hasError : ""}`} 
+                  />
+                  {errors.lastName && <span className={styles.errorText}>{errors.lastName}</span>}
+                </div>
               </div>
               <div className={styles.inputGroup}>
-                <input type="text" name="recipientName" placeholder="Für wen ist der Gutschein? (Optional)" className={styles.input} />
+                <input 
+                  type="text" 
+                  name="recipientName" 
+                  placeholder="Für wen ist der Gutschein? (Name, optional)" 
+                  className={styles.input} 
+                />
               </div>
               <div className={styles.inputGroup}>
-                <textarea name="message" placeholder="Ihre persönliche Nachricht (Optional)" className={styles.input} rows={3} style={{resize: 'none'}} />
+                <input 
+                  type="email" 
+                  name="recipientEmail" 
+                  placeholder="E-Mail-Adresse des Empfängers *" 
+                  required 
+                  className={`${styles.input} ${errors.recipientEmail ? styles.hasError : ""}`} 
+                />
+                {errors.recipientEmail && <span className={styles.errorText}>{errors.recipientEmail}</span>}
+              </div>
+              <div className={styles.inputGroup}>
+                <textarea 
+                  name="message" 
+                  placeholder="Ihre persönliche Nachricht (Optional)" 
+                  className={styles.input} 
+                  rows={3} 
+                  style={{resize: 'none'}} 
+                />
               </div>
             </div>
 

@@ -253,3 +253,28 @@
     padding: 2rem 1.5rem;
   }
 }
+
+.container *,
+.container *::before,
+.container *::after {
+  box-sizing: border-box;
+}
+
+.input.hasError {
+  border-color: #ff4d4d !important;
+  box-shadow: 0 0 5px rgba(255, 77, 77, 0.3) !important;
+}
+
+.input.hasError:focus {
+  border-color: #ff4d4d !important;
+  box-shadow: 0 0 5px rgba(255, 77, 77, 0.5) !important;
+}
+
+.errorText {
+  color: #ff4d4d;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  font-family: var(--font-primary), sans-serif;
+  text-align: left;
+  display: block;
+}

@@ -32,7 +32,15 @@ export async function POST(req) {
     const session = event.data.object;
 
     // Metadata'yı al
-    const { amount, buyerName, buyerEmail, recipientName, message } = session.metadata;
+    const { amount, buyerName, buyerEmail, recipientName, recipientEmail, message } = session.metadata;
+
+    // Get billing address from Stripe Session details
+    const billingAddress = session.customer_details?.address ? {
+      street: session.customer_details.address.line1 + (session.customer_details.address.line2 ? `, ${session.customer_details.address.line2}` : ""),
+      city: session.customer_details.address.city,
+      postalCode: session.customer_details.address.postal_code,
+      country: session.customer_details.address.country,
+    } : undefined;
 
     await connectToDatabase();
 
@@ -43,14 +51,16 @@ export async function POST(req) {
       // 1. Veritabanına Kaydet
       await Gutschein.create({
         code: uniqueCode,
-        amount: Number(amount),
+        initialAmount: Number(amount),
+        currentAmount: Number(amount),
         buyerName,
         buyerEmail,
         recipientName,
+        recipientEmail,
         message,
+        billingAddress,
         stripeSessionId: session.id,
         status: "PAID",
-        paymentDate: new Date(),
       });
 
       // 2. PDF Üret
@@ -64,12 +74,11 @@ export async function POST(req) {
 
       // 3. E-posta Gönder
       await sendGutscheinEmail(
-        { buyerName, buyerEmail, recipientName, amount, code: uniqueCode, message },
+        { buyerName, buyerEmail, recipientName, recipientEmail, amount, code: uniqueCode, message },
         pdfBuffer
       );
     } catch (err) {
       console.error("Error fulfilling Gutschein order:", err);
-      // Stripe webhook'un retry atması için 500 dönebilirsiniz ama e-posta hatası DB'yi bozmamalı
     }
   }
 

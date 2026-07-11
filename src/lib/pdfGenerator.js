@@ -100,7 +100,10 @@ export const generateGutscheinPDF = async (gutschein) => {
 
   // QR Kod oluştur
   try {
-    const qrBuffer = await QRCode.toBuffer(gutschein.code, {
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://leonnrestaurant.com";
+    const verificationUrl = `${siteUrl}/admin/redeem?code=${gutschein.code}`;
+    
+    const qrBuffer = await QRCode.toBuffer(verificationUrl, {
       color: {
         dark: '#dbbd82',  // Altın
         light: '#15144a' // Arka planla aynı
