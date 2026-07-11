@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "../components/Navbar";
+import SplashScreen from "../components/SplashScreen";
 
 const elmsSans = localFont({
   src: "./fonts/ElmsSans-VariableFont_wght.ttf",
@@ -29,8 +30,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="de">
       <body className={`${elmsSans.variable} ${cormorantGaramond.variable} ${greatVibes.variable}`}>
-        <Navbar />
-        {children}
+        <SplashScreen>
+          <Navbar />
+          {children}
+        </SplashScreen>
       </body>
     </html>
   );
