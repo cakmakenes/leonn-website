@@ -127,11 +127,12 @@ export default function ReservationPage() {
       setErrors(newErrors);
       setIsLoading(false);
 
-      // Execute focus and scroll synchronously so that iOS Safari allows focus redirection
+      // Execute focus and scroll synchronously with behavior: 'auto' (instant) for cross-browser reliability
       const firstErrorKey = Object.keys(newErrors)[0];
       const errorElement = document.querySelector(`[name="${firstErrorKey}"]`);
       if (errorElement) {
-        errorElement.scrollIntoView({ behavior: "smooth", block: "center" });
+        const errorContainer = errorElement.closest(`.${styles.inputGroup}`) || errorElement;
+        errorContainer.scrollIntoView({ behavior: "auto", block: "center" });
         errorElement.focus();
       }
 
