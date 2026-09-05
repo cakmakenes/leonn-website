@@ -10,10 +10,12 @@ const contentSecurityPolicy = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  "img-src 'self' data: blob: https://*.googleapis.com https://*.gstatic.com https://maps.google.com",
   "font-src 'self' data:",
   "connect-src 'self'",
   "form-action 'self'",
+  // The Kontakt page embeds a Google Maps iframe of the restaurant location.
+  "frame-src https://www.google.com https://maps.google.com",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "object-src 'none'",

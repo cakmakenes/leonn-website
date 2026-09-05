@@ -1,5 +1,6 @@
 import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
 import QRCode from "qrcode";
+import { CONTACT, CONTACT_ADDRESS_LINE } from "@/lib/contact";
 
 const PAGE_WIDTH = 600;
 const PAGE_HEIGHT = 400;
@@ -199,7 +200,7 @@ export const generateGutscheinPDF = async (gutschein) => {
     font: boldFont,
     color: GOLD,
   });
-  page.drawText("www.leonnrestaurant.com", {
+  page.drawText(toWinAnsi(`${CONTACT.website}  -  ${CONTACT_ADDRESS_LINE}`), {
     x: CONTENT_LEFT,
     y: 40,
     size: 10,

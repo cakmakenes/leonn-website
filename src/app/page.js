@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { MapPin } from "lucide-react"; 
+import { MapPin } from "lucide-react";
+import { CONTACT, CONTACT_ADDRESS_LINE } from "@/lib/contact";
 
 const InstagramIcon = ({ size = 40 }) => (
   <svg 
@@ -104,13 +105,21 @@ export default function Home() {
         </div>
         
         <div className={styles.social}>
-          <a href="#" target="_blank" rel="noreferrer" aria-label="Instagram">
+          <a href={CONTACT.instagramUrl} target="_blank" rel="noreferrer" aria-label="Instagram">
             <InstagramIcon size={40} />
           </a>
-          <a href="#" target="_blank" rel="noreferrer" aria-label="Google Maps">
+          <a href={CONTACT.googleMapsUrl} target="_blank" rel="noreferrer" aria-label="Google Maps">
             <MapPin size={40} />
           </a>
         </div>
+
+        <address className={styles.address}>
+          {CONTACT.name} · {CONTACT_ADDRESS_LINE}
+          <br />
+          <a href={`tel:${CONTACT.phoneHref}`}>{CONTACT.phone}</a>
+          {" · "}
+          <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+        </address>
       </footer>
     </main>
   );
