@@ -19,6 +19,13 @@ async function connectToDatabase() {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
+      // Without an explicit timeout an unreachable cluster leaves requests
+      // hanging for ~45s, which is both bad UX and a cheap way to exhaust
+      // server resources.
+      serverSelectionTimeoutMS: 8000,
+      connectTimeoutMS: 8000,
+      socketTimeoutMS: 20000,
+      maxPoolSize: 10,
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {

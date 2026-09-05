@@ -52,3 +52,7 @@ requirements.md
 # Assets (if present in root, though usually in /public)
 Leonn - Final.pdf
 Leonn - Final.ai
+
+# Source design artwork and local maintenance scripts (kept out of the deploy)
+/design/
+/scripts/
