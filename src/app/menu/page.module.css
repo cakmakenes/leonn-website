@@ -7,7 +7,7 @@
 .header {
   text-align: center;
   padding: 12rem 2rem 6rem 2rem;
-  background-image: linear-gradient(to bottom, rgba(21, 20, 70, 0.55), rgba(21, 20, 70, 0.95)), url('/menu-header-bg.png');
+  background-image: linear-gradient(to bottom, rgba(var(--color-deep-rgb), 0.72), rgba(var(--color-deep-rgb), 0.97)), url('/menu-header-bg.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -37,29 +37,13 @@
   max-width: 900px; /* Floating capsule width */
   width: 90%;
   margin: -2.5rem auto 4rem auto; /* Pulls it up to float over the header boundary */
-  background-color: rgba(21, 20, 70, 0.95);
+  background-color: rgba(var(--color-primary-rgb), 0.92);
   border: 1px solid rgba(219, 189, 130, 0.25);
   border-radius: 50px;
   padding: 0.75rem 1.5rem;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
   transition: top 0.3s ease;
-}
-
-.hamburgerBtn {
-  background: none;
-  border: none;
-  color: var(--color-secondary);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s ease;
-  margin-right: 0.25rem;
-}
-
-.hamburgerBtn:hover {
-  transform: scale(1.1);
 }
 
 .stickyBarContent {
@@ -201,6 +185,36 @@
   border-color: rgba(219, 189, 130, 0.5);
 }
 
+/* Photos are optional per product, so the image block bleeds out of the card's
+   padding instead of the card reserving space for one. */
+.cardImage {
+  position: relative;
+  width: calc(100% + 4rem);
+  margin: -2rem -2rem 1.5rem -2rem;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+  background-color: var(--color-motif-light);
+}
+
+.cardImageInner {
+  object-fit: cover;
+}
+
+.sectionEmpty,
+.emptyState {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-primary), sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.emptyState {
+  max-width: 520px;
+  margin: 6rem auto;
+}
+
 .cardHeader {
   display: flex;
   justify-content: space-between;
@@ -238,7 +252,7 @@
 @media (max-width: 768px) {
   .header {
     padding: 10rem 1rem 4rem 1rem;
-    background-image: linear-gradient(to bottom, rgba(21, 20, 70, 0.6), rgba(21, 20, 70, 0.98)), url('/menu-header-bg.png');
+    background-image: linear-gradient(to bottom, rgba(var(--color-deep-rgb), 0.78), rgba(var(--color-deep-rgb), 0.99)), url('/menu-header-bg.png');
   }
 
   .header h1 {
@@ -254,7 +268,7 @@
     border-radius: 30px;
     margin: -2rem auto 2.5rem auto; /* Floating offset over the header border */
     backdrop-filter: none;
-    background-color: rgb(21, 20, 70); /* Solid background to save mobile GPU */
+    background-color: var(--color-primary); /* Solid background to save mobile GPU */
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
   }
 

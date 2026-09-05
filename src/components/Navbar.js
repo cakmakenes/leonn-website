@@ -38,15 +38,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Listen to open-hamburger-menu event from the menu page sticky bar
-  useEffect(() => {
-    const handleOpenMenu = () => {
-      setIsOpen(true);
-    };
-    window.addEventListener("open-hamburger-menu", handleOpenMenu);
-    return () => window.removeEventListener("open-hamburger-menu", handleOpenMenu);
-  }, []);
-
   // Lock body scroll when hamburger menu is open to optimize rendering performance
   useEffect(() => {
     if (isOpen) {
