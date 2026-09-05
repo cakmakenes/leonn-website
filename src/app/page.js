@@ -40,7 +40,7 @@ export default function Home() {
       <section className={styles.hero}>
         <div className={styles.heroBg}>
           <Image 
-            src="/motif-v3.png" 
+            src="/motif-v5.webp" 
             alt="Leonn Background Motif" 
             fill 
             priority

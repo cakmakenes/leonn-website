@@ -1,15 +1,38 @@
 :root {
-  /* Brand Colors */
-  --color-primary: #151446;
-  --color-primary-rgb: 21, 20, 70;
-  
+  /* The surface ramp is derived from the flyer artwork
+     (design/nirvana-flyer-desenler.pdf): a near-black blue-grey whose deepest
+     tones sit around #06090b and whose brightest strokes reach ~#1c2024. The
+     ramp below keeps that luminance range and only tilts the hue towards the
+     brand navy, so the whole site reads as one dark, tonal piece with gold as
+     the single accent.
+
+     --color-deep     page base, matches the motif's darkest tone
+     --color-primary  default surface (nav capsule, menu overlay, splash)
+     --color-surface  raised surface (cards, inputs, info panels) */
+  --color-deep: #05060d;
+  --color-deep-rgb: 5, 6, 13;
+
+  --color-primary: #0a0b16;
+  --color-primary-rgb: 10, 11, 22;
+
+  --color-surface: #10121f;
+  --color-surface-rgb: 16, 18, 31;
+
+  /* Brightest tone of the motif. Kept in sync with LIGHT in
+     scripts/generate-motif.py; used for hairlines and subtle fills. */
+  --color-motif-light: #131624;
+
+  /* Brand navy. Reserved for the logo and print/PDF output, where the mark has
+     to stay on-brand rather than follow the darkened screen palette. */
+  --color-brand: #151446;
+
   --color-secondary: #dbbd82;
   --color-secondary-rgb: 219, 189, 130;
-  
+
   --color-white: #ffffff;
-  --color-black: #050505;
+  --color-black: #030408;
   --color-text: #eaeaea;
-  --color-background: var(--color-primary); 
+  --color-background: var(--color-deep);
 }
 
 * {

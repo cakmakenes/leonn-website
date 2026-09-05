@@ -1,5 +1,6 @@
 .main {
   width: 100%;
+  background-color: var(--color-deep);
 }
 
 .hero {
@@ -32,7 +33,14 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle, rgba(21, 20, 70, 0) 0%, rgba(21, 20, 70, 0.95) 100%);
+  /* Bottom fade blends the hero into the next section, spotlight vignette
+     keeps the motif readable in the centre and calm towards the edges. */
+  background:
+    linear-gradient(to bottom, rgba(var(--color-deep-rgb), 0) 80%, var(--color-deep) 100%),
+    radial-gradient(circle at 50% 45%,
+      rgba(var(--color-deep-rgb), 0) 0%,
+      rgba(var(--color-deep-rgb), 0.25) 45%,
+      rgba(var(--color-deep-rgb), 0.7) 100%);
 }
 
 @keyframes slowZoom {
@@ -94,13 +102,40 @@
 }
 
 .linksSection {
+  position: relative;
   padding: 10vh 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20vh;
-  background: var(--color-primary);
+  background-color: var(--color-deep);
   min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Same motif carried through the links section, viewport-locked so the
+   pattern stays at hero scale instead of stretching over a very tall block. */
+.linksSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/motif-v5.webp');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  /* The motif now sits at almost the same tone as the base, so it needs to run
+     close to full strength to stay perceptible as texture. */
+  opacity: 0.9;
+  pointer-events: none;
+  /* Eases the texture in from the hero and out into the footer so neither
+     section boundary shows a hard edge. */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 20vh, #000 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 20vh, #000 82%, transparent 100%);
+}
+
+.linkWrapper {
+  position: relative;
+  z-index: 1;
 }
 
 .linkWrapper h2 {
@@ -165,6 +200,12 @@
 @media (max-width: 768px) {
   .heroContent h1 { 
     font-size: 4rem; 
+  }
+
+  /* iOS ignores background-attachment: fixed and rescales the image badly,
+     so the links section falls back to the flat deep navy on mobile. */
+  .linksSection::before {
+    display: none;
   }
   
   .linkWrapper h2 { 
