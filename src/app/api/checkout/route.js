@@ -45,6 +45,10 @@ export async function POST(req) {
 
   try {
     const session = await getStripe().checkout.sessions.create({
+      // Klarna and PayPal are the methods the owner asked for; card is kept as
+      // a universally available fallback. Each of these must also be enabled in
+      // the Stripe Dashboard, otherwise Stripe rejects the session.
+      payment_method_types: ["card", "klarna", "paypal"],
       billing_address_collection: "required",
       customer_email: data.buyerEmail,
       line_items: [
@@ -62,6 +66,15 @@ export async function POST(req) {
         },
       ],
       mode: "payment",
+      // Issue a proper invoice for every voucher purchase and let Stripe email
+      // the PDF to the buyer, using the billing address collected at checkout.
+      invoice_creation: {
+        enabled: true,
+        invoice_data: {
+          description: `Leonn Gutschein im Wert von ${amountEuros} €`,
+          footer: "Leonn Restaurant · Bergisch Gladbacher Str. 263, 51063 Köln",
+        },
+      },
       success_url: `${siteUrl}/gutschein/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${siteUrl}/gutschein`,
       metadata: {

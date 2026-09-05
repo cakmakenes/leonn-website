@@ -10,7 +10,6 @@ const presetAmounts = [25, 50, 100, 150, 200];
 export default function GutscheinPage() {
   const [amount, setAmount] = useState(50);
   const [customAmount, setCustomAmount] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("paypal");
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
@@ -254,29 +253,11 @@ export default function GutscheinPage() {
             </div>
 
             <div className={styles.section}>
-              <h3>3. Zahlungsmethode</h3>
-              <div className={styles.paymentMethods}>
-                <label className={`${styles.paymentRadio} ${paymentMethod === 'paypal' ? styles.activePayment : ''}`}>
-                  <input 
-                    type="radio" 
-                    name="payment" 
-                    value="paypal" 
-                    checked={paymentMethod === 'paypal'} 
-                    onChange={() => setPaymentMethod('paypal')}
-                  />
-                  <span>PayPal</span>
-                </label>
-                <label className={`${styles.paymentRadio} ${paymentMethod === 'klarna' ? styles.activePayment : ''}`}>
-                  <input 
-                    type="radio" 
-                    name="payment" 
-                    value="klarna" 
-                    checked={paymentMethod === 'klarna'} 
-                    onChange={() => setPaymentMethod('klarna')}
-                  />
-                  <span>Klarna</span>
-                </label>
-              </div>
+              <h3>3. Zahlung</h3>
+              <p className={styles.paymentHint}>
+                Die Zahlung erfolgt sicher im nächsten Schritt. Zur Auswahl stehen{" "}
+                <strong>PayPal</strong>, <strong>Klarna</strong> und <strong>Kreditkarte</strong>.
+              </p>
             </div>
 
             <div className={styles.legalSection}>

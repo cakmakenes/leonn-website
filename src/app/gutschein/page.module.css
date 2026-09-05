@@ -205,6 +205,21 @@
   font-size: 1.1rem;
 }
 
+.paymentHint {
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(219, 189, 130, 0.15);
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+}
+
+.paymentHint strong {
+  color: var(--color-secondary);
+  font-weight: 600;
+}
+
 .submitBtn {
   width: 100%;
   background: var(--color-secondary);
