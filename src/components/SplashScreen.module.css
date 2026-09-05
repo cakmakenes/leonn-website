@@ -30,13 +30,13 @@
 }
 
 .splashLogo {
-  width: 200px;
-  height: auto;
+  /* Vertical LogoFull is font-size driven (emblem 3.4em, wordmark scales too). */
+  font-size: 34px;
   color: var(--color-secondary);
 }
 
 @media (max-width: 768px) {
   .splashLogo {
-    width: 150px;
+    font-size: 26px;
   }
 }

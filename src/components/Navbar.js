@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import Logo from "./Logo";
+import LogoFull from "./LogoFull";
 import styles from "./Navbar.module.css";
 
 const menuItems = [
@@ -63,8 +63,8 @@ export default function Navbar() {
           </button>
           
           <div className={styles.logoWrapper}>
-            <Link href="/" aria-label="Leonn Homepage">
-              <Logo className={styles.svgLogo} />
+            <Link href="/" aria-label="Leonn Restaurant Startseite">
+              <LogoFull className={styles.svgLogo} />
             </Link>
           </div>
           

@@ -75,10 +75,17 @@
 }
 
 .svgLogo {
-  width: 160px;
-  height: 60px;
+  /* LogoFull is font-size driven: the emblem is 1.9em and the wordmark scales
+     from the same base, so one value sizes the whole lockup. */
+  font-size: 22px;
   color: var(--color-secondary);
   transition: opacity 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .svgLogo {
+    font-size: 18px;
+  }
 }
 
 .svgLogo:hover {

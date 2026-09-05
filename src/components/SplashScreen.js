@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Logo from "./Logo";
+import LogoFull from "./LogoFull";
 import styles from "./SplashScreen.module.css";
 
 export default function SplashScreen({ children }) {
@@ -30,7 +30,7 @@ export default function SplashScreen({ children }) {
       {isVisible && (
         <div className={`${styles.splash} ${isFading ? styles.fadeOut : ''}`}>
           <div className={styles.logoContainer}>
-            <Logo className={styles.splashLogo} />
+            <LogoFull className={styles.splashLogo} vertical />
           </div>
         </div>
       )}
