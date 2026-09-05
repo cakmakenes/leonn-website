@@ -1,0 +1,88 @@
+.page {
+  padding: 12rem 2rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  min-height: 80vh;
+  text-align: center;
+  color: #fff;
+}
+
+.title {
+  color: var(--color-secondary);
+  font-size: 4rem;
+  margin-bottom: 2rem;
+}
+
+.text {
+  font-size: 1.2rem;
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.82);
+  margin-bottom: 2.5rem;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 3rem;
+}
+
+.imageFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(219, 189, 130, 0.25);
+  background-color: var(--color-surface);
+}
+
+.image {
+  object-fit: cover;
+}
+
+.cta {
+  display: inline-block;
+  background: var(--color-secondary);
+  color: var(--color-primary);
+  font-family: var(--font-primary), sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 1rem 2.5rem;
+  border-radius: 8px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.cta:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.contactLine {
+  margin-top: 1.25rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.95rem;
+}
+
+.contactLine a {
+  color: var(--color-secondary);
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 9rem 1.25rem 4rem;
+  }
+
+  .title {
+    font-size: 2.8rem;
+  }
+
+  .text {
+    font-size: 1.05rem;
+  }
+
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+}
