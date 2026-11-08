@@ -298,7 +298,7 @@ export default function ReservationPage() {
           </div>
 
           <button type="submit" className={styles.submitBtn} disabled={isLoading}>
-            {isLoading ? "Bitte warten..." : "Jetzt Reservieren"}
+            {isLoading ? "Bitte warten..." : "Jetzt anfragen"}
           </button>
           <p className={styles.infoText}>
             Nach dem Absenden erhalten Sie keine automatische Bestätigung. Wir prüfen Ihre Anfrage und melden uns schnellstmöglich per E-Mail bei Ihnen.

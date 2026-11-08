@@ -11,6 +11,9 @@ import Logo from "./Logo";
  * lets the whole lockup inherit `currentColor` (gold in the navbar, whatever
  * the context needs elsewhere).
  *
+ * "RESTAURANT" is spread letter by letter so it starts and ends exactly under
+ * "LEONN", as in the brand logo. Plain letter-spacing cannot guarantee that.
+ *
  * `vertical` stacks the emblem above the wordmark for the splash screen; the
  * default is the horizontal lockup used in the navbar. Both are sized by
  * `font-size` on the element that receives `className`.
@@ -21,6 +24,8 @@ export default function LogoFull({ className, vertical = false }) {
   return (
     <span
       className={className}
+      role="img"
+      aria-label="Leonn Restaurant"
       style={{
         display: "inline-flex",
         flexDirection: vertical ? "column" : "row",
@@ -36,7 +41,6 @@ export default function LogoFull({ className, vertical = false }) {
         style={{
           display: "flex",
           flexDirection: "column",
-          alignItems: vertical ? "center" : "flex-start",
           justifyContent: "center",
         }}
       >
@@ -46,6 +50,8 @@ export default function LogoFull({ className, vertical = false }) {
             fontWeight: 700,
             fontSize: "1.5em",
             letterSpacing: "0.06em",
+            // Cancels the tracking after the last N, so the block ends on the glyph.
+            marginRight: "-0.06em",
             lineHeight: 1,
           }}
         >
@@ -53,17 +59,20 @@ export default function LogoFull({ className, vertical = false }) {
         </span>
         <span
           style={{
+            display: "flex",
+            justifyContent: "space-between",
+            // Takes its width from "LEONN" without widening the block itself.
+            width: 0,
+            minWidth: "100%",
             fontFamily: "var(--font-primary), sans-serif",
             fontWeight: 300,
             fontSize: "0.62em",
-            letterSpacing: "0.42em",
-            // The wide tracking would otherwise push the word off-centre to the
-            // right; nudge it back so it sits under the "LEONN" cap height.
-            marginLeft: vertical ? "0.42em" : "0.1em",
             marginTop: "0.28em",
           }}
         >
-          RESTAURANT
+          {[..."RESTAURANT"].map((letter, index) => (
+            <span key={index}>{letter}</span>
+          ))}
         </span>
       </span>
     </span>

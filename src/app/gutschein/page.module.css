@@ -48,6 +48,8 @@
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0,0,0,0.5);
   border: 1px solid rgba(219, 189, 130, 0.3);
+  /* Card contents scale with the card (cqw) so nothing is cut off on phones. */
+  container-type: inline-size;
 }
 
 .cardBg {
@@ -60,23 +62,23 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(var(--color-deep-rgb), 0.78);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: 6cqw;
   text-align: center;
 }
 
-.cardOverlay h2 {
-  font-size: 4rem;
+.cardLogo {
+  font-size: 4.2cqw;
   color: var(--color-secondary);
   margin-bottom: auto;
 }
 
 .cardAmount {
-  font-size: 5rem;
+  font-size: 14cqw;
+  line-height: 1;
   font-family: var(--font-secondary), serif;
   color: var(--color-white);
   text-shadow: 0 4px 10px rgba(0,0,0,0.5);
@@ -85,7 +87,8 @@
 .cardText {
   margin-top: auto;
   font-family: var(--font-primary), sans-serif;
-  letter-spacing: 4px;
+  font-size: 2.8cqw;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--color-secondary);
   opacity: 0.8;
@@ -242,7 +245,8 @@
 
 @media (max-width: 992px) {
   .content {
-    grid-template-columns: 1fr;
+    /* minmax(0, ...) stops the form's min width from pushing the card off-screen. */
+    grid-template-columns: minmax(0, 1fr);
   }
   
   .imageWrapper {

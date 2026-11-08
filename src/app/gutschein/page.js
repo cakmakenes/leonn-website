@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import LogoFull from "@/components/LogoFull";
 import styles from "./page.module.css";
 
 const presetAmounts = [25, 50, 100, 150, 200];
@@ -126,21 +127,18 @@ export default function GutscheinPage() {
 
       <div className={styles.content}>
         <div className={styles.imageWrapper}>
-          {/* We use the hero image temporarily as placeholder for Gutschein design */}
           <div className={styles.cardPreview}>
-            <Image 
-              src="/hero-bg.png" 
-              alt="Leonn Restaurant Gutschein" 
-              fill 
+            <Image
+              src="/motif-v5.webp"
+              alt=""
+              fill
+              sizes="(max-width: 992px) 500px, 570px"
               className={styles.cardBg}
             />
             <div className={styles.cardOverlay}>
-              <h2 className="font-tertiary">Leonn</h2>
+              <LogoFull className={styles.cardLogo} />
               <div className={styles.cardAmount}>{amount} €</div>
               <p className={styles.cardText}>Gutschein</p>
-              <div style={{ marginTop: "1rem", fontSize: "0.9rem", color: "rgba(255,255,255,0.6)" }}>
-                inkl. 0% MwSt. (Mehrzweck-Gutschein)
-              </div>
             </div>
           </div>
         </div>

@@ -47,11 +47,6 @@ export default function ImpressumPage() {
           <strong>Kontakt</strong>
           <br />
           Telefon: {CONTACT.phone}
-          <br />
-          E-Mail:{" "}
-          <a href={`mailto:${CONTACT.email}`} style={{ color: "var(--color-secondary)" }}>
-            {CONTACT.email}
-          </a>
         </p>
         <p style={{ margin: "20px 0 10px 0" }}>
           <strong>Umsatzsteuer-Identifikationsnummer</strong>
@@ -85,7 +80,7 @@ export default function ImpressumPage() {
             href="https://www.universalschlichtungsstelle.de"
             target="_blank"
             rel="noreferrer"
-            style={{ color: "var(--color-secondary)" }}
+            style={{ color: "var(--color-secondary)", overflowWrap: "anywhere" }}
           >
             https://www.universalschlichtungsstelle.de
           </a>
@@ -127,7 +122,8 @@ export default function ImpressumPage() {
         </p>
         <p style={{ margin: "10px 0" }}>
           <strong>Ihre Rechte:</strong> Sie haben das Recht auf Auskunft, Berichtigung und Löschung Ihrer
-          gespeicherten Daten. Wenden Sie sich hierzu an {CONTACT.email}.
+          gespeicherten Daten. Wenden Sie sich hierzu telefonisch unter {CONTACT.phone} oder postalisch an
+          die oben genannte Adresse.
         </p>
         {/* TODO(owner): Vollständige Datenschutzerklärung (DSGVO Art. 13/14) einsetzen. */}
         <p style={{ margin: "10px 0", color: "rgba(255,255,255,0.6)", fontSize: "0.9rem" }}>

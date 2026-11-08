@@ -34,7 +34,7 @@ export default function VipRoomPage() {
       <p className={styles.text}>Jetzt reservieren und unvergessliche Momente erleben!</p>
 
       <Link href="/reservation" className={styles.cta}>
-        Jetzt reservieren
+        Jetzt anfragen
       </Link>
     </main>
   );

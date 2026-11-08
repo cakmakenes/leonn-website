@@ -6,8 +6,8 @@
  * or phone number is a one-line edit instead of a hunt across the codebase.
  *
  * The address and website are taken from the official brand letterhead
- * (design/Leonn - Final/Antetli). Fields the owner still has to confirm are
- * marked with a TODO so they are easy to find before launch.
+ * (design/Leonn - Final/Antetli). No email address is published, on the owner's
+ * request, to avoid spam.
  */
 
 export const CONTACT = {
@@ -21,7 +21,6 @@ export const CONTACT = {
 
   phone: "02443 9124069",
   phoneHref: "+4924439124069",
-  email: "info@leonn.de",
 
   website: "www.leonnrestaurant.com",
   websiteUrl: "https://www.leonnrestaurant.com",

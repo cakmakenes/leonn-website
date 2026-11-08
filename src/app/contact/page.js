@@ -44,12 +44,6 @@ export default function ContactPage() {
             {CONTACT.phone}
           </a>
         </p>
-        <p style={{ margin: "10px 0" }}>
-          <strong>E-Mail:</strong>{" "}
-          <a href={`mailto:${CONTACT.email}`} style={{ color: "var(--color-secondary)" }}>
-            {CONTACT.email}
-          </a>
-        </p>
       </div>
 
       {/* Embedded map so guests can find the restaurant without leaving the page. */}

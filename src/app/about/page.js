@@ -24,10 +24,28 @@ export default function AboutPage() {
       </div>
 
       <p className={styles.text}>
-        Willkommen im Leonn Restaurant. Wir bieten Ihnen eine exklusive Auswahl an erlesenen
-        Fleischspezialitäten, Mezze und frisch zubereiteten Gerichten. Genießen Sie die einzigartige
-        Atmosphäre und lassen Sie sich von unserer kulinarischen Vielfalt verzaubern.
+        Die Geschichte von Leonn ist eng mit unseren türkischen Wurzeln, unserer Küche und der
+        türkischen Gastfreundschaft verbunden. Es ist unsere Leidenschaft, die Aromen, Traditionen und
+        die besondere Bedeutung des gemeinsamen Essens, mit denen wir aufgewachsen sind, unseren Gästen
+        näherzubringen.
       </p>
+      <p className={styles.text}>
+        In unserer Küche werden täglich mehr als 70 verschiedene Speisen frisch zubereitet. Vom
+        Frühstück über Mezze und Grillgerichte bis hin zu traditionellen anatolischen Spezialitäten und
+        Desserts legen wir großen Wert auf Frische, hochwertige Zutaten und eine sorgfältige
+        Zubereitung. Traditionelle Rezepte bewahren wir dabei und verbinden sie mit der eigenen
+        Handschrift von Leonn.
+      </p>
+      <p className={styles.text}>
+        In der türkischen Kultur ist der gedeckte Tisch weit mehr als nur ein Ort zum Essen. Er steht
+        für Gemeinschaft, Teilen und Gastfreundschaft. Genau dieses Gefühl möchten wir bei Leonn
+        weitergeben und jedem Gast das Gefühl vermitteln, herzlich willkommen zu sein.
+      </p>
+      <p className={styles.text}>
+        Diese Speisekarte ist Ausdruck unserer Verbundenheit mit der türkischen Küche, unseren Wurzeln
+        und der Gastfreundschaft, die uns seit jeher begleitet.
+      </p>
+      <p className={styles.text}>Herzlich willkommen bei Leonn. Afiyet olsun.</p>
     </main>
   );
 }

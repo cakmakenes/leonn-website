@@ -144,8 +144,6 @@ export default function Home() {
           {CONTACT.name} · {CONTACT_ADDRESS_LINE}
           <br />
           <a href={`tel:${CONTACT.phoneHref}`}>{CONTACT.phone}</a>
-          {" · "}
-          <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
         </address>
       </footer>
     </main>
