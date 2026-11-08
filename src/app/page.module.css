@@ -128,7 +128,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20vh;
+  justify-content: center;
+  gap: 1.5rem;
   background-color: var(--color-deep);
   min-height: 100vh;
   overflow: hidden;
@@ -157,20 +158,38 @@
 .linkWrapper {
   position: relative;
   z-index: 1;
+  width: min(560px, calc(100vw - 4rem));
+}
+
+.linkWrapper a {
+  display: block;
+  padding: 1.1rem 1.5rem;
+  border: 1px solid rgba(219, 189, 130, 0.6);
+  border-radius: 8px;
+  background-color: rgba(var(--color-deep-rgb), 0.75);
+  color: var(--color-text);
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.linkWrapper a:hover,
+.linkWrapper a:active {
+  color: var(--color-primary);
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
 }
 
 .linkWrapper h2 {
-  font-size: 5rem;
+  font-size: 2.5rem;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 8px;
-  cursor: pointer;
-  transition: transform 0.3s ease, text-shadow 0.3s ease;
+  letter-spacing: 4px;
   text-align: center;
+  transition: color 0.2s ease;
 }
 
-.linkWrapper h2:hover {
-  transform: scale(1.05);
-  text-shadow: 0 0 20px rgba(219, 189, 130, 0.4);
+.linkWrapper a:hover h2,
+.linkWrapper a:active h2 {
+  color: var(--color-primary);
 }
 
 .footer {
@@ -229,12 +248,14 @@
     display: none;
   }
   
-  .linkWrapper h2 { 
-    font-size: 2.2rem; 
-    letter-spacing: 3px;
-    padding: 0 1.5rem;
+  .linkWrapper a {
+    padding: 0.8rem 1rem;
+  }
+
+  .linkWrapper h2 {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
     line-height: 1.2;
-    word-break: break-word;
   }
 
   .hours ul {

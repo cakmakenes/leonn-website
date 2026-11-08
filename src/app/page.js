@@ -27,11 +27,11 @@ const InstagramIcon = ({ size = 40 }) => (
 import styles from "./page.module.css";
 
 const sections = [
-  { title: "Reservieren", href: "/reservation", color: "var(--color-secondary)" },
-  { title: "Menü", href: "/menu", color: "var(--color-white)" },
-  { title: "Gutschein", href: "/gutschein", color: "var(--color-secondary)" },
-  { title: "Kontakt", href: "/contact", color: "var(--color-white)" },
-  { title: "V.I.P Room", href: "/vip-room", color: "var(--color-secondary)" },
+  { title: "Reservieren", href: "/reservation" },
+  { title: "Menü", href: "/menu" },
+  { title: "Gutschein", href: "/gutschein" },
+  { title: "Kontakt", href: "/contact" },
+  { title: "V.I.P Room", href: "/vip-room" },
 ];
 
 export default function Home() {
@@ -115,7 +115,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
           >
             <Link href={section.href}>
-              <h2 style={{ color: section.color }}>{section.title}</h2>
+              <h2>{section.title}</h2>
             </Link>
           </motion.div>
         ))}
