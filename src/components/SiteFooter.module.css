@@ -1,0 +1,46 @@
+.footer {
+  background-color: var(--color-black);
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  font-family: var(--font-primary), sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.links a {
+  transition: color 0.2s ease;
+}
+
+.links a:hover {
+  color: var(--color-secondary);
+}
+
+.address {
+  font-style: normal;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.55);
+  font-family: var(--font-primary), sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.9;
+  letter-spacing: 0.5px;
+}
+
+.address a {
+  color: rgba(255, 255, 255, 0.75);
+  transition: color 0.2s ease;
+}
+
+.address a:hover {
+  color: var(--color-secondary);
+}

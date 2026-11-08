@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "../components/Navbar";
 import SplashScreen from "../components/SplashScreen";
+import SiteFooter from "../components/SiteFooter";
 
 const elmsSans = localFont({
   src: "./fonts/ElmsSans-VariableFont_wght.ttf",
@@ -33,6 +34,7 @@ export default function RootLayout({ children }) {
         <SplashScreen>
           <Navbar />
           {children}
+          <SiteFooter />
         </SplashScreen>
       </body>
     </html>

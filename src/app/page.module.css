@@ -175,7 +175,7 @@
 
 .footer {
   background-color: var(--color-black);
-  padding: 8rem 2rem;
+  padding: 8rem 2rem 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -216,25 +216,6 @@
 .social a:hover {
   transform: translateY(-5px) scale(1.1);
   color: var(--color-white);
-}
-
-.address {
-  font-style: normal;
-  text-align: center;
-  color: rgba(255, 255, 255, 0.55);
-  font-family: var(--font-primary), sans-serif;
-  font-size: 0.9rem;
-  line-height: 1.9;
-  letter-spacing: 0.5px;
-}
-
-.address a {
-  color: rgba(255, 255, 255, 0.75);
-  transition: color 0.2s ease;
-}
-
-.address a:hover {
-  color: var(--color-secondary);
 }
 
 @media (max-width: 768px) {

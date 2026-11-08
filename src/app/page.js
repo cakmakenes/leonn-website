@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
-import { CONTACT, CONTACT_ADDRESS_LINE } from "@/lib/contact";
+import { CONTACT } from "@/lib/contact";
 
 const InstagramIcon = ({ size = 40 }) => (
   <svg 
@@ -31,8 +31,7 @@ const sections = [
   { title: "Menü", href: "/menu", color: "var(--color-white)" },
   { title: "Gutschein", href: "/gutschein", color: "var(--color-secondary)" },
   { title: "Kontakt", href: "/contact", color: "var(--color-white)" },
-  { title: "Impressum", href: "/impressum", color: "var(--color-secondary)" },
-  { title: "V.I.P Room", href: "/vip-room", color: "var(--color-white)" },
+  { title: "V.I.P Room", href: "/vip-room", color: "var(--color-secondary)" },
 ];
 
 export default function Home() {
@@ -139,12 +138,6 @@ export default function Home() {
             <MapPin size={40} />
           </a>
         </div>
-
-        <address className={styles.address}>
-          {CONTACT.name} · {CONTACT_ADDRESS_LINE}
-          <br />
-          <a href={`tel:${CONTACT.phoneHref}`}>{CONTACT.phone}</a>
-        </address>
       </footer>
     </main>
   );

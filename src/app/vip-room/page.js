@@ -11,7 +11,7 @@ export const metadata = {
 export default function VipRoomPage() {
   return (
     <main className={styles.page}>
-      <h1 className={`font-tertiary ${styles.title}`}>V.I.P Room</h1>
+      <h1 className={styles.title}>V.I.P Room</h1>
 
       <div className={styles.imageFrame}>
         <Image

@@ -14,8 +14,6 @@ const menuItems = [
   { name: "Gutschein", href: "/gutschein" },
   { name: "V.I.P Room", href: "/vip-room" },
   { name: "Kontakt", href: "/contact" },
-  { name: "Impressum", href: "/impressum" },
-  { name: "Öffnungszeiten", href: "/#hours" },
 ];
 
 export default function Navbar() {
