@@ -59,13 +59,13 @@ const SIGNATURE = `<br /><p>Mit freundlichen Grüßen,<br />Ihr Leonn Team</p>`;
  * `approvalUrl` / `rejectUrl` are generated server-side and are not user input.
  */
 export const sendAdminNotificationEmail = async (reservation, approvalUrl, rejectUrl) => {
-  const { name, email, phone, date, time, guests, specialRequests } = reservation;
+  const { name, email, phone, date, time, guests, specialRequests, vipRoom } = reservation;
 
   await getTransporter().sendMail({
     from: fromAddress(),
     to: adminRecipient(),
     replyTo: email,
-    subject: `NEUE RESERVIERUNGSANFRAGE - ${name}`,
+    subject: `NEUE RESERVIERUNGSANFRAGE${vipRoom ? " (V.I.P. ROOM)" : ""} - ${name}`,
     html: `
       <h2>Neue Reservierungsanfrage</h2>
       <p>Es liegt eine neue offene Reservierungsanfrage vor. Bitte bestätigen oder ablehnen:</p>
@@ -76,6 +76,7 @@ export const sendAdminNotificationEmail = async (reservation, approvalUrl, rejec
         <li><strong>Datum:</strong> ${escapeHtml(formatGermanDate(date))}</li>
         <li><strong>Uhrzeit:</strong> ${escapeHtml(time)}</li>
         <li><strong>Personen:</strong> ${escapeHtml(String(guests))}</li>
+        ${vipRoom ? "<li><strong>V.I.P. Room angefragt</strong></li>" : ""}
         ${specialRequests ? `<li><strong>Besondere Wünsche:</strong> ${escapeHtml(specialRequests)}</li>` : ""}
       </ul>
       <div style="margin: 20px 0;">
@@ -88,7 +89,7 @@ export const sendAdminNotificationEmail = async (reservation, approvalUrl, rejec
 };
 
 export const sendCustomerApprovalEmail = async (reservation) => {
-  const { name, email, date, time, guests } = reservation;
+  const { name, email, date, time, guests, vipRoom } = reservation;
 
   await getTransporter().sendMail({
     from: fromAddress(),
@@ -102,6 +103,7 @@ export const sendCustomerApprovalEmail = async (reservation) => {
         <li><strong>Datum:</strong> ${escapeHtml(formatGermanDate(date))}</li>
         <li><strong>Uhrzeit:</strong> ${escapeHtml(time)}</li>
         <li><strong>Personen:</strong> ${escapeHtml(String(guests))}</li>
+        ${vipRoom ? "<li><strong>Bereich:</strong> V.I.P. Room</li>" : ""}
       </ul>
       <p>Wir freuen uns darauf, Sie bald bei uns begrüßen zu dürfen!</p>
       ${SIGNATURE}

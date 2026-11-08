@@ -58,7 +58,7 @@ function reservationSummaryHtml(reservation) {
   return `<p>
       <strong>${escapeHtml(reservation.name)}</strong><br />
       ${escapeHtml(formatGermanDate(reservation.date))} um ${escapeHtml(reservation.time)} Uhr<br />
-      ${escapeHtml(String(reservation.guests))} Personen
+      ${escapeHtml(String(reservation.guests))} Personen${reservation.vipRoom ? "<br />V.I.P. Room angefragt" : ""}
     </p>`;
 }
 

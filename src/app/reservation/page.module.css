@@ -104,6 +104,24 @@
   border-color: var(--color-secondary);
 }
 
+.vipOption {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-primary), sans-serif;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+}
+
+.vipOption input {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  accent-color: var(--color-secondary);
+  cursor: pointer;
+}
+
 .submitBtn {
   width: 100%;
   background: var(--color-secondary);

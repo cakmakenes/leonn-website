@@ -11,7 +11,14 @@ const RESTAURANT_TIME_ZONE = "Europe/Berlin";
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 const PHONE_PATTERN = /^[\d\s+()/.-]{5,30}$/;
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
-const TIME_PATTERN = /^([01]\d|2[0-3]):([0-5]\d)$/;
+
+/** Bookable times ("09:00" ... "23:00"): every 30 minutes within opening hours. */
+export const RESERVATION_TIME_SLOTS = Array.from({ length: 29 }, (_, index) => {
+  const minutes = 9 * 60 + index * 30;
+  const hh = String(Math.floor(minutes / 60)).padStart(2, "0");
+  const mm = String(minutes % 60).padStart(2, "0");
+  return `${hh}:${mm}`;
+});
 
 export const LIMITS = {
   name: 100,
@@ -98,8 +105,8 @@ export function validateReservationInput(body) {
   if (!DATE_PATTERN.test(date) || Number.isNaN(Date.parse(`${date}T00:00:00Z`))) {
     errors.push("Bitte geben Sie ein gültiges Datum an.");
   }
-  if (!TIME_PATTERN.test(time)) {
-    errors.push("Bitte geben Sie eine gültige Uhrzeit an.");
+  if (!RESERVATION_TIME_SLOTS.includes(time)) {
+    errors.push("Bitte wählen Sie eine Uhrzeit zwischen 09:00 und 23:00 Uhr im 30-Minuten-Takt.");
   }
 
   if (errors.length === 0) {
@@ -125,6 +132,7 @@ export function validateReservationInput(body) {
       time,
       guests,
       specialRequests,
+      vipRoom: body.vipRoom === true,
     },
   };
 }

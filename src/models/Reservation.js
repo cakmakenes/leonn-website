@@ -9,6 +9,7 @@ const reservationSchema = new mongoose.Schema(
     time: { type: String, required: true },
     guests: { type: Number, required: true },
     specialRequests: { type: String },
+    vipRoom: { type: Boolean, default: false },
     status: { type: String, enum: ["PENDING", "CONFIRMED", "CANCELLED"], default: "PENDING" },
     // Separate high-entropy tokens per action: holding the approval link must
     // not also grant the ability to reject, and vice versa.

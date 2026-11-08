@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { earliestReservationDate } from "@/lib/validation";
+import { earliestReservationDate, RESERVATION_TIME_SLOTS } from "@/lib/validation";
 import styles from "./page.module.css";
 
 export default function ReservationPage() {
@@ -10,6 +10,7 @@ export default function ReservationPage() {
     date: "",
     time: "",
     guests: "2",
+    vipRoom: false,
     firstName: "",
     lastName: "",
     email: "",
@@ -124,6 +125,7 @@ export default function ReservationPage() {
           time: formData.time,
           guests: Number(formData.guests) || 12,
           specialRequests: formData.message,
+          vipRoom: formData.vipRoom,
         })
       });
 
@@ -192,15 +194,19 @@ export default function ReservationPage() {
               </div>
               <div className={styles.inputGroup}>
                 <label>Uhrzeit *</label>
-                <input 
-                  type="time" 
-                  name="time" 
+                <select
+                  name="time"
                   ref={timeInputRef}
-                  required 
+                  required
                   className={`${styles.input} ${errors.time ? styles.hasError : ""}`}
                   value={formData.time}
                   onChange={handleChange}
-                />
+                >
+                  <option value="" disabled>Bitte wählen</option>
+                  {RESERVATION_TIME_SLOTS.map((slot) => (
+                    <option key={slot} value={slot}>{slot} Uhr</option>
+                  ))}
+                </select>
                 {errors.time && <span className={styles.errorText}>{errors.time}</span>}
               </div>
               <div className={styles.inputGroup}>
@@ -219,6 +225,15 @@ export default function ReservationPage() {
                 </select>
               </div>
             </div>
+            <label className={styles.vipOption}>
+              <input
+                type="checkbox"
+                name="vipRoom"
+                checked={formData.vipRoom}
+                onChange={(e) => setFormData({ ...formData, vipRoom: e.target.checked })}
+              />
+              <span>Ich möchte V.I.P. Room anfragen</span>
+            </label>
           </div>
 
           <div className={styles.section}>
