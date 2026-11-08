@@ -19,9 +19,10 @@ export const CONTACT = {
   city: "Köln",
   country: "Deutschland",
 
-  // TODO(owner): confirm the public phone number and inbox before launch.
-  phone: "+49 221 1234567",
-  phoneHref: "+492211234567",
+  phones: [
+    { display: "02443 9124068", href: "+4924439124068" },
+    { display: "02443 9124069", href: "+4924439124069" },
+  ],
   email: "info@leonn.de",
 
   website: "www.leonnrestaurant.com",

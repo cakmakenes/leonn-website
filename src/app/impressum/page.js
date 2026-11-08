@@ -46,6 +46,8 @@ export default function ImpressumPage() {
         <p style={{ margin: "20px 0 10px 0" }}>
           <strong>Kontakt</strong>
           <br />
+          Telefon: {CONTACT.phones.map((phone) => phone.display).join(" / ")}
+          <br />
           E-Mail:{" "}
           <a href={`mailto:${CONTACT.email}`} style={{ color: "var(--color-secondary)" }}>
             {CONTACT.email}

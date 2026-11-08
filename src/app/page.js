@@ -143,8 +143,12 @@ export default function Home() {
         <address className={styles.address}>
           {CONTACT.name} · {CONTACT_ADDRESS_LINE}
           <br />
-          <a href={`tel:${CONTACT.phoneHref}`}>{CONTACT.phone}</a>
-          {" · "}
+          {CONTACT.phones.map((phone) => (
+            <span key={phone.href}>
+              <a href={`tel:${phone.href}`}>{phone.display}</a>
+              {" · "}
+            </span>
+          ))}
           <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
         </address>
       </footer>
