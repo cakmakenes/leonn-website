@@ -17,14 +17,7 @@
   font-size: 1.2rem;
   line-height: 1.9;
   color: rgba(255, 255, 255, 0.82);
-  margin-bottom: 2.5rem;
-}
-
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1.25rem;
 }
 
 .imageFrame {
@@ -35,6 +28,7 @@
   overflow: hidden;
   border: 1px solid rgba(219, 189, 130, 0.25);
   background-color: var(--color-surface);
+  margin-bottom: 2.5rem;
 }
 
 .image {
@@ -51,22 +45,13 @@
   letter-spacing: 1px;
   padding: 1rem 2.5rem;
   border-radius: 8px;
+  margin-top: 1.25rem;
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .cta:hover {
   opacity: 0.9;
   transform: translateY(-2px);
-}
-
-.contactLine {
-  margin-top: 1.25rem;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.95rem;
-}
-
-.contactLine a {
-  color: var(--color-secondary);
 }
 
 @media (max-width: 768px) {
@@ -80,9 +65,5 @@
 
   .text {
     font-size: 1.05rem;
-  }
-
-  .gallery {
-    grid-template-columns: 1fr;
   }
 }

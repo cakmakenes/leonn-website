@@ -31,28 +31,63 @@ export default function ImpressumPage() {
       </h1>
 
       <section style={panelStyle}>
-        <h3 style={headingStyle}>Angaben gemäß § 5 TMG</h3>
+        <h3 style={headingStyle}>Angaben gemäß § 5 DDG (Digitale-Dienste-Gesetz)</h3>
         <p style={{ margin: "10px 0" }}>
-          {CONTACT.name}
+          LEONN Restaurant
+          <br />
+          Inhaber: Muhsin Aslan
           <br />
           {CONTACT.street}
           <br />
           {CONTACT.postalCode} {CONTACT.city}
-        </p>
-        {/* TODO(owner): Rechtsform und Vertretungsberechtigten bestätigen. */}
-        <p style={{ margin: "10px 0" }}>
-          <strong>Vertreten durch:</strong>
           <br />
-          Enes Cakmak
+          {CONTACT.country}
         </p>
         <p style={{ margin: "20px 0 10px 0" }}>
-          <strong>Kontakt:</strong>
+          <strong>Kontakt</strong>
           <br />
-          Telefon: {CONTACT.phone}
-          <br />
-          E-Mail: {CONTACT.email}
+          E-Mail:{" "}
+          <a href={`mailto:${CONTACT.email}`} style={{ color: "var(--color-secondary)" }}>
+            {CONTACT.email}
+          </a>
         </p>
-        {/* TODO(owner): Umsatzsteuer-ID (§ 27a UStG) und ggf. Handelsregister/Aufsichtsbehörde ergänzen. */}
+        <p style={{ margin: "20px 0 10px 0" }}>
+          <strong>Umsatzsteuer-Identifikationsnummer</strong>
+          <br />
+          Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:
+          <br />
+          DE327525348
+        </p>
+        <p style={{ margin: "20px 0 10px 0" }}>
+          <strong>Verbraucherstreitbeilegung gemäß § 36 VSBG</strong>
+          <br />
+          Wir sind bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle
+          teilzunehmen.
+        </p>
+        <p style={{ margin: "10px 0" }}>
+          Zuständige Verbraucherschlichtungsstelle:
+          <br />
+          Universalschlichtungsstelle des Bundes
+          <br />
+          Zentrum für Schlichtung e. V.
+          <br />
+          Straßburger Straße 8
+          <br />
+          77694 Kehl am Rhein
+          <br />
+          Deutschland
+        </p>
+        <p style={{ margin: "10px 0" }}>
+          Website:{" "}
+          <a
+            href="https://www.universalschlichtungsstelle.de"
+            target="_blank"
+            rel="noreferrer"
+            style={{ color: "var(--color-secondary)" }}
+          >
+            https://www.universalschlichtungsstelle.de
+          </a>
+        </p>
       </section>
 
       <section id="agb" style={panelStyle}>

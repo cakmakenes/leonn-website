@@ -12,7 +12,7 @@ const menuItems = [
   { name: "Über Uns", href: "/about" },
   { name: "Reservieren", href: "/reservation" },
   { name: "Gutschein", href: "/gutschein" },
-  { name: "Veranstaltung", href: "/events" },
+  { name: "V.I.P Room", href: "/vip-room" },
   { name: "Kontakt", href: "/contact" },
   { name: "Impressum", href: "/impressum" },
   { name: "Öffnungszeiten", href: "/#hours" },

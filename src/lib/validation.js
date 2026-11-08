@@ -23,7 +23,6 @@ export const LIMITS = {
   maxGuests: 20,
   minAmount: 10,
   maxAmount: 1000,
-  reservationLeadMinutes: 15,
   maxDaysAhead: 365,
 };
 
@@ -51,16 +50,14 @@ function todayInRestaurantTz() {
   }).format(new Date());
 }
 
-/** Current wall-clock minutes since midnight in the restaurant's time zone. */
-function nowMinutesInRestaurantTz() {
-  const parts = new Intl.DateTimeFormat("en-GB", {
-    timeZone: RESTAURANT_TIME_ZONE,
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  }).format(new Date());
-  const [hours, minutes] = parts.split(":").map(Number);
-  return hours * 60 + minutes;
+/**
+ * First bookable reservation date (YYYY-MM-DD): tomorrow in the restaurant's
+ * time zone. Same-day reservations are not accepted. Also used by the form.
+ */
+export function earliestReservationDate() {
+  const tomorrow = new Date(`${todayInRestaurantTz()}T00:00:00Z`);
+  tomorrow.setUTCDate(tomorrow.getUTCDate() + 1);
+  return tomorrow.toISOString().slice(0, 10);
 }
 
 function daysBetweenIsoDates(fromIso, toIso) {
@@ -108,15 +105,10 @@ export function validateReservationInput(body) {
   if (errors.length === 0) {
     const today = todayInRestaurantTz();
 
-    if (date < today) {
-      errors.push("Das Datum liegt in der Vergangenheit.");
+    if (date < earliestReservationDate()) {
+      errors.push("Reservierungen sind frühestens für den nächsten Tag möglich.");
     } else if (daysBetweenIsoDates(today, date) > LIMITS.maxDaysAhead) {
       errors.push("Reservierungen sind maximal ein Jahr im Voraus möglich.");
-    } else if (date === today) {
-      const [hours, minutes] = time.split(":").map(Number);
-      if (hours * 60 + minutes < nowMinutesInRestaurantTz() + LIMITS.reservationLeadMinutes) {
-        errors.push("Bitte wählen Sie eine Uhrzeit, die mindestens 15 Minuten in der Zukunft liegt.");
-      }
     }
   }
 

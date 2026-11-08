@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { earliestReservationDate } from "@/lib/validation";
 import styles from "./page.module.css";
 
 export default function ReservationPage() {
@@ -20,9 +21,7 @@ export default function ReservationPage() {
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState({});
   
-  // Dynamic minimum date and time restrictions
   const [minDate, setMinDate] = useState("");
-  const [minTime, setMinTime] = useState("");
 
   // Refs for auto-focus transition
   const dateInputRef = useRef(null);
@@ -38,26 +37,11 @@ export default function ReservationPage() {
 
   useEffect(() => {
     setIsMounted(true);
-    
-    // Calculate today's date in local YYYY-MM-DD
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const dd = String(today.getDate()).padStart(2, '0');
-    setMinDate(`${yyyy}-${mm}-${dd}`);
 
-    // If date is today, calculate minimum time (now + 30 minutes)
-    const updateMinTime = () => {
-      const now = new Date();
-      now.setMinutes(now.getMinutes() + 30);
-      const hh = String(now.getHours()).padStart(2, '0');
-      const min = String(now.getMinutes()).padStart(2, '0');
-      setMinTime(`${hh}:${min}`);
-    };
-
-    updateMinTime();
-    const interval = setInterval(updateMinTime, 60000); // Keep it updated every minute
-    return () => clearInterval(interval);
+    // Reservations start from the next day, which is also the preselected date.
+    const earliest = earliestReservationDate();
+    setMinDate(earliest);
+    setFormData((prev) => ({ ...prev, date: earliest }));
   }, []);
 
   const handleChange = (e) => {
@@ -82,23 +66,12 @@ export default function ReservationPage() {
     if (!formData.date) {
       newErrors.date = "Bitte wählen Sie ein Datum aus.";
     } else if (formData.date < minDate) {
-      newErrors.date = "Das Datum darf nicht in der Vergangenheit liegen.";
+      newErrors.date = "Reservierungen sind frühestens für den nächsten Tag möglich.";
     }
 
     // 2. Time Validation
     if (!formData.time) {
       newErrors.time = "Bitte wählen Sie eine Uhrzeit aus.";
-    } else if (formData.date && formData.time && formData.date === minDate) {
-      const [year, month, day] = formData.date.split("-").map(Number);
-      const [hour, minute] = formData.time.split(":").map(Number);
-      const selectedDateTime = new Date(year, month - 1, day, hour, minute);
-      
-      const minAllowedDateTime = new Date();
-      minAllowedDateTime.setMinutes(minAllowedDateTime.getMinutes() + 30);
-
-      if (selectedDateTime < minAllowedDateTime) {
-        newErrors.time = "Für Reservierungen am selben Tag muss die Uhrzeit mindestens 30 Minuten in der Zukunft liegen.";
-      }
     }
 
     // 3. First Name
@@ -223,7 +196,6 @@ export default function ReservationPage() {
                   type="time" 
                   name="time" 
                   ref={timeInputRef}
-                  min={formData.date === minDate ? minTime : undefined}
                   required 
                   className={`${styles.input} ${errors.time ? styles.hasError : ""}`}
                   value={formData.time}

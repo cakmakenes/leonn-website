@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -31,19 +32,32 @@ const sections = [
   { title: "Gutschein", href: "/gutschein", color: "var(--color-secondary)" },
   { title: "Kontakt", href: "/contact", color: "var(--color-white)" },
   { title: "Impressum", href: "/impressum", color: "var(--color-secondary)" },
-  { title: "Veranstaltung", href: "/events", color: "var(--color-white)" },
+  { title: "V.I.P Room", href: "/vip-room", color: "var(--color-white)" },
 ];
 
 export default function Home() {
+  const introVideoRef = useRef(null);
+
+  // React sets `muted` as a property only, so it is missing from the server
+  // HTML and Safari refuses that autoplay. Starting it again here covers that.
+  useEffect(() => {
+    const video = introVideoRef.current;
+    if (!video) return;
+    video.muted = true;
+    video.play().catch(() => {
+      // Autoplay can still be blocked (e.g. iOS Low Power Mode); the poster stays.
+    });
+  }, []);
+
   return (
     <main className={styles.main}>
       {/* Hero Section */}
       <section className={styles.hero}>
         <div className={styles.heroBg}>
-          <Image 
-            src="/motif-v5.webp" 
-            alt="Leonn Background Motif" 
-            fill 
+          <Image
+            src="/motif-v5.webp"
+            alt="Leonn Background Motif"
+            fill
             priority
             className={styles.heroImage}
           />
@@ -57,15 +71,34 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
           >
-            Hoşgeldiniz
+            Herzlich Willkommen
           </motion.h1>
+          <motion.div
+            className={styles.videoFrame}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.3 }}
+          >
+            <video
+              ref={introVideoRef}
+              className={styles.heroVideo}
+              src="/intro-gif.mp4"
+              poster="/motif-v5.webp"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              aria-hidden="true"
+            />
+          </motion.div>
           <motion.div 
             className={styles.scrollIndicator}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 1 }}
           >
-            <span>Aşağı Kaydırın</span>
+            <span>Scrollen</span>
             <div className={styles.scrollArrow}></div>
           </motion.div>
         </div>
@@ -94,13 +127,7 @@ export default function Home() {
         <div className={styles.hours}>
           <h3 className="font-tertiary" style={{ fontSize: "3rem", marginBottom: "1.5rem" }}>Öffnungszeiten</h3>
           <ul>
-            <li><span>Montag</span> <span>Geschlossen</span></li>
-            <li><span>Dienstag</span> <span>17:00 - 23:00</span></li>
-            <li><span>Mittwoch</span> <span>17:00 - 23:00</span></li>
-            <li><span>Donnerstag</span> <span>17:00 - 23:00</span></li>
-            <li><span>Freitag</span> <span>17:00 - 00:00</span></li>
-            <li><span>Samstag</span> <span>15:00 - 00:00</span></li>
-            <li><span>Sonntag</span> <span>10:00 - 22:00</span></li>
+            <li><span>Montag - Sonntag</span> <span>09:00 - 23:00</span></li>
           </ul>
         </div>
         

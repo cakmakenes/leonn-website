@@ -1,11 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import LogoFull from "./LogoFull";
 import styles from "./SplashScreen.module.css";
 
 export default function SplashScreen({ children }) {
-  const [isVisible, setIsVisible] = useState(true);
+  // The home page opens straight on the intro video, so no splash in front of it.
+  const isHome = usePathname() === "/";
+  const [isVisible, setIsVisible] = useState(!isHome);
   const [isFading, setIsFading] = useState(false);
 
   useEffect(() => {

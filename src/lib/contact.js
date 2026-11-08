@@ -14,7 +14,7 @@ export const CONTACT = {
   name: "Leonn Restaurant",
 
   // From the brand letterhead.
-  street: "Bergisch Gladbacher Str. 263",
+  street: "Bergisch Gladbacher Straße 261–263",
   postalCode: "51063",
   city: "Köln",
   country: "Deutschland",
@@ -22,17 +22,14 @@ export const CONTACT = {
   // TODO(owner): confirm the public phone number and inbox before launch.
   phone: "+49 221 1234567",
   phoneHref: "+492211234567",
-  email: "info@leonnrestaurant.com",
+  email: "info@leonn.de",
 
   website: "www.leonnrestaurant.com",
   websiteUrl: "https://www.leonnrestaurant.com",
 
-  // TODO(owner): replace with the real profile URLs.
-  instagramUrl: "https://www.instagram.com/leonnrestaurant",
-  // A Google Maps place/search link for the address above.
-  googleMapsUrl:
-    "https://www.google.com/maps/search/?api=1&query=Leonn+Restaurant+Bergisch+Gladbacher+Str.+263+51063+K%C3%B6ln",
+  instagramUrl: "https://www.instagram.com/leonn.restaurant",
+  googleMapsUrl: "https://maps.app.goo.gl/cTvdFSddYRzERyL26?g_st=ic",
 };
 
-/** "Bergisch Gladbacher Str. 263, 51063 Köln" */
+/** "Bergisch Gladbacher Straße 261–263, 51063 Köln" */
 export const CONTACT_ADDRESS_LINE = `${CONTACT.street}, ${CONTACT.postalCode} ${CONTACT.city}`;
