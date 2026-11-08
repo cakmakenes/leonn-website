@@ -119,6 +119,7 @@ export default function MenuView({ categories }) {
             className={styles.menuSection}
           >
             <h2 className={styles.sectionTitle}>{cat.name}</h2>
+            {cat.subtitle && <p className={styles.sectionNote}>{cat.subtitle}</p>}
 
             {cat.items.length === 0 ? (
               <p className={styles.sectionEmpty}>Bald verfügbar.</p>

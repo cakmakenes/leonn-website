@@ -153,6 +153,16 @@
   transform: translateX(-50%);
 }
 
+.sectionNote {
+  margin: -1.25rem auto 2.5rem;
+  max-width: 640px;
+  text-align: center;
+  font-family: var(--font-primary), sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.7);
+}
+
 .sectionTitle::after {
   content: '';
   position: absolute;

@@ -59,6 +59,7 @@ export function serializeCategory(doc) {
     id: String(doc._id),
     name: doc.name,
     slug: doc.slug,
+    subtitle: doc.subtitle ?? "",
     position: doc.position,
     isVisible: doc.isVisible,
   };

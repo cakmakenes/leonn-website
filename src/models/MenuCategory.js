@@ -16,6 +16,8 @@ const menuCategorySchema = new mongoose.Schema(
   {
     name: { type: String, required: true, trim: true, maxlength: 60 },
     slug: { type: String, required: true, unique: true, maxlength: 80 },
+    // Short note under the heading, e.g. "werden mit Pirinç serviert".
+    subtitle: { type: String, default: "", maxlength: 200 },
     position: { type: Number, required: true, default: 0 },
     // Lets the kitchen park a section (e.g. seasonal breakfast) without
     // deleting its items.
