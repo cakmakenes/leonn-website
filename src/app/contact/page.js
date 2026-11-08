@@ -40,14 +40,9 @@ export default function ContactPage() {
         </p>
         <p style={{ margin: "10px 0" }}>
           <strong>Telefon:</strong>{" "}
-          {CONTACT.phones.map((phone, index) => (
-            <span key={phone.href}>
-              {index > 0 && " / "}
-              <a href={`tel:${phone.href}`} style={{ color: "var(--color-secondary)" }}>
-                {phone.display}
-              </a>
-            </span>
-          ))}
+          <a href={`tel:${CONTACT.phoneHref}`} style={{ color: "var(--color-secondary)" }}>
+            {CONTACT.phone}
+          </a>
         </p>
         <p style={{ margin: "10px 0" }}>
           <strong>E-Mail:</strong>{" "}

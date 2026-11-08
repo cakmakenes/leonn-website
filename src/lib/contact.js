@@ -19,10 +19,8 @@ export const CONTACT = {
   city: "Köln",
   country: "Deutschland",
 
-  phones: [
-    { display: "02443 9124068", href: "+4924439124068" },
-    { display: "02443 9124069", href: "+4924439124069" },
-  ],
+  phone: "02443 9124069",
+  phoneHref: "+4924439124069",
   email: "info@leonn.de",
 
   website: "www.leonnrestaurant.com",
