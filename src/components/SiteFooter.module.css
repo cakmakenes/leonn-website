@@ -1,6 +1,6 @@
 .footer {
   background-color: var(--color-black);
-  padding: 2.5rem 2rem;
+  padding: 2.5rem 2rem calc(2.5rem + var(--bottom-bar-height));
   display: flex;
   flex-direction: column;
   align-items: center;

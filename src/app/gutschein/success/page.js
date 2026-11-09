@@ -5,7 +5,6 @@ export default function GutscheinSuccessPage() {
     <main style={{
       padding: "12rem 2rem 6rem",
       minHeight: "85vh",
-      backgroundColor: "var(--color-background)",
       color: "var(--color-white)",
       display: "flex",
       flexDirection: "column",
@@ -16,7 +15,7 @@ export default function GutscheinSuccessPage() {
     }}>
       <div style={{
         maxWidth: "600px",
-        background: "rgba(255, 255, 255, 0.03)",
+        background: "rgba(var(--color-surface-rgb), 0.92)",
         border: "1px solid rgba(219, 189, 130, 0.15)",
         borderRadius: "20px",
         padding: "3.5rem 2rem",

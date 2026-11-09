@@ -1,6 +1,5 @@
 .menuContainer {
   min-height: 100vh;
-  background-color: var(--color-background);
   color: var(--color-text);
 }
 
@@ -181,7 +180,7 @@
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(var(--color-surface-rgb), 0.92);
   border: 1px solid rgba(219, 189, 130, 0.1);
   border-radius: 12px;
   padding: 2rem;

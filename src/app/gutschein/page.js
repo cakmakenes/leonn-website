@@ -129,7 +129,7 @@ export default function GutscheinPage() {
         <div className={styles.imageWrapper}>
           <div className={styles.cardPreview}>
             <Image
-              src="/motif-v5.webp"
+              src="/motif-v6.webp"
               alt=""
               fill
               sizes="(max-width: 992px) 500px, 570px"

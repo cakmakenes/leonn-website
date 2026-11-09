@@ -1,7 +1,6 @@
 .container {
   padding-top: 120px;
   min-height: 100vh;
-  background-color: var(--color-background);
   color: var(--color-text);
   padding-bottom: 6rem;
 }
@@ -47,7 +46,7 @@
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-  border: 1px solid rgba(219, 189, 130, 0.3);
+  border: 2px solid var(--color-secondary);
   /* Card contents scale with the card (cqw) so nothing is cut off on phones. */
   container-type: inline-size;
 }
@@ -95,7 +94,7 @@
 }
 
 .formWrapper {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(var(--color-surface-rgb), 0.92);
   border: 1px solid rgba(219, 189, 130, 0.1);
   border-radius: 20px;
   padding: 3rem;

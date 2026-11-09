@@ -1,46 +1,26 @@
 .main {
   width: 100%;
-  background-color: var(--color-deep);
 }
 
 .hero {
   position: relative;
   width: 100vw;
   min-height: 100vh;
-  padding: 7rem 0 1.5rem;
+  padding: 6.5rem 0 calc(1.5rem + var(--bottom-bar-height));
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
 }
 
-.heroBg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-.heroImage {
-  object-fit: cover;
-  animation: slowZoom 20s ease-in-out infinite alternate;
-}
-
-@keyframes slowZoom {
-  0% { transform: scale(1); }
-  100% { transform: scale(1.1); }
-}
-
 /* The intro video is only 816x464, so the frame never grows past its native
    width. The third limit keeps heading, frame and scroll cue on short screens. */
 .videoFrame {
-  width: min(816px, 90vw, calc((100svh - 26rem) * 816 / 464));
+  width: min(816px, 90vw, calc((100svh - 30rem) * 816 / 464));
   aspect-ratio: 816 / 464;
   border-radius: 14px;
   overflow: hidden;
-  border: 1px solid rgba(219, 189, 130, 0.45);
+  border: 2px solid var(--color-secondary);
   background-color: var(--color-surface);
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
 }
@@ -75,7 +55,35 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
+}
+
+.quickLinks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+  width: min(640px, calc(100vw - 2rem));
+}
+
+.quickLinks a {
+  padding: 0.75rem 0.25rem;
+  border: 1px solid var(--color-secondary);
+  border-radius: 8px;
+  background-color: rgba(var(--color-primary-rgb), 0.85);
+  color: var(--color-secondary);
+  font-family: var(--font-secondary), serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.quickLinks a:hover,
+.quickLinks a:active {
+  color: var(--color-primary);
+  background-color: var(--color-secondary);
 }
 
 .heroContent h1 {
@@ -100,7 +108,7 @@
 
 .scrollArrow {
   width: 2px;
-  height: 60px;
+  height: 40px;
   background-color: rgba(255,255,255,0.2);
   position: relative;
   overflow: hidden;
@@ -130,29 +138,8 @@
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
-  background-color: var(--color-deep);
   min-height: 100vh;
   overflow: hidden;
-}
-
-/* Same motif carried through the links section, viewport-locked so the
-   pattern stays at hero scale instead of stretching over a very tall block. */
-.linksSection::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url('/motif-v5.webp');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  /* The motif now sits at almost the same tone as the base, so it needs to run
-     close to full strength to stay perceptible as texture. */
-  opacity: 0.9;
-  pointer-events: none;
-  /* Eases the texture in from the hero and out into the footer so neither
-     section boundary shows a hard edge. */
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 20vh, #000 82%, transparent 100%);
-  mask-image: linear-gradient(to bottom, transparent 0, #000 20vh, #000 82%, transparent 100%);
 }
 
 .linkWrapper {
@@ -166,7 +153,7 @@
   padding: 1.1rem 1.5rem;
   border: 1px solid rgba(219, 189, 130, 0.6);
   border-radius: 8px;
-  background-color: rgba(var(--color-deep-rgb), 0.75);
+  background-color: rgba(var(--color-primary-rgb), 0.85);
   color: var(--color-text);
   transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
@@ -242,12 +229,11 @@
     font-size: 2.6rem;
   }
 
-  /* iOS ignores background-attachment: fixed and rescales the image badly,
-     so the links section falls back to the flat deep navy on mobile. */
-  .linksSection::before {
-    display: none;
+  .quickLinks a {
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
   }
-  
+
   .linkWrapper a {
     padding: 0.8rem 1rem;
   }

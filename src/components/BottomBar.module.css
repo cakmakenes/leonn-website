@@ -1,0 +1,30 @@
+.bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Same layer as the navbar, under the full-screen hamburger menu. */
+  z-index: 40;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: var(--bottom-bar-height);
+  background-color: var(--color-secondary);
+  color: var(--color-brand);
+  box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.35);
+}
+
+.bar a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.bar a + a {
+  border-left: 1px solid rgba(var(--color-primary-rgb), 0.3);
+}
+
+.bar a:hover,
+.bar a:active {
+  background-color: #e8cca0;
+}

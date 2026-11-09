@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "../components/Navbar";
 import SplashScreen from "../components/SplashScreen";
 import SiteFooter from "../components/SiteFooter";
+import BottomBar from "../components/BottomBar";
 
 const elmsSans = localFont({
   src: "./fonts/ElmsSans-VariableFont_wght.ttf",
@@ -35,6 +36,7 @@ export default function RootLayout({ children }) {
           <Navbar />
           {children}
           <SiteFooter />
+          <BottomBar />
         </SplashScreen>
       </body>
     </html>

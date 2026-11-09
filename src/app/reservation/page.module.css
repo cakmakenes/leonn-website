@@ -1,7 +1,6 @@
 .container {
   padding-top: 120px;
   min-height: 100vh;
-  background-color: var(--color-background);
   color: var(--color-text);
   padding-bottom: 6rem;
   box-sizing: border-box;
@@ -35,7 +34,7 @@
 .formWrapper {
   max-width: 800px;
   margin: 0 auto;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(var(--color-surface-rgb), 0.92);
   border: 1px solid rgba(219, 189, 130, 0.1);
   border-radius: 20px;
   padding: 4rem;

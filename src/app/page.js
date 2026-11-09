@@ -1,30 +1,19 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
+import InstagramIcon from "@/components/InstagramIcon";
 import { CONTACT } from "@/lib/contact";
 
-const InstagramIcon = ({ size = 40 }) => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    width={size} 
-    height={size} 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
-    strokeLinejoin="round"
-  >
-    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-  </svg>
-);
 import styles from "./page.module.css";
+
+const quickLinks = [
+  { title: "Menü", href: "/menu" },
+  { title: "Reservieren", href: "/reservation" },
+  { title: "V.I.P Room", href: "/vip-room" },
+];
 
 const sections = [
   { title: "Reservieren", href: "/reservation" },
@@ -52,18 +41,12 @@ export default function Home() {
     <main className={styles.main}>
       {/* Hero Section */}
       <section className={styles.hero}>
-        <div className={styles.heroBg}>
-          <Image
-            src="/motif-v5.webp"
-            alt="Leonn Background Motif"
-            fill
-            priority
-            className={styles.heroImage}
-          />
-          <div className={styles.overlay}></div>
-        </div>
-        
         <div className={styles.heroContent}>
+          <nav className={styles.quickLinks} aria-label="Schnellzugriff">
+            {quickLinks.map((link) => (
+              <Link key={link.href} href={link.href}>{link.title}</Link>
+            ))}
+          </nav>
           <motion.h1 
             className="font-tertiary"
             initial={{ opacity: 0, y: 30 }}
@@ -82,7 +65,7 @@ export default function Home() {
               ref={introVideoRef}
               className={styles.heroVideo}
               src="/intro-gif.mp4"
-              poster="/motif-v5.webp"
+              poster="/motif-v6.webp"
               autoPlay
               muted
               loop
