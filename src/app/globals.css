@@ -1,21 +1,24 @@
 :root {
-  /* The surface ramp is built around the brand navy (#151446), with gold as the
-     single accent.
+  /* The surface ramp sits slightly below the brand navy (#151446), with gold as
+     the single accent.
 
-     --color-deep     page base, matches the darkest tone of motif-v6
+     --color-deep     page base
      --color-primary  default surface (nav capsule, menu overlay, splash)
      --color-surface  raised surface (cards, inputs, info panels) */
-  --color-deep: #0e0e33;
-  --color-deep-rgb: 14, 14, 51;
+  --color-deep: #0c0c2d;
+  --color-deep-rgb: 12, 12, 45;
 
-  --color-primary: #151446;
-  --color-primary-rgb: 21, 20, 70;
+  --color-primary: #12123d;
+  --color-primary-rgb: 18, 18, 61;
 
-  --color-surface: #1b1a55;
-  --color-surface-rgb: 27, 26, 85;
+  --color-surface: #17174a;
+  --color-surface-rgb: 23, 23, 74;
 
   /* Used for hairlines and subtle fills such as the product photo backdrop. */
-  --color-motif-light: #232268;
+  --color-motif-light: #1e1e5b;
+
+  /* Laid over motif-v6 wherever it is shown; raise the alpha to darken the pattern. */
+  --motif-shade: rgba(8, 8, 30, 0.22);
 
   --color-brand: #151446;
 
@@ -26,7 +29,7 @@
   --color-secondary-rgb: 219, 189, 130;
 
   --color-white: #ffffff;
-  --color-black: #0a0a26;
+  --color-black: #090922;
   --color-text: #eaeaea;
   --color-background: var(--color-deep);
 }
@@ -58,7 +61,9 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: var(--color-background) url('/motif-v6.webp') center / cover no-repeat;
+  background:
+    linear-gradient(var(--motif-shade), var(--motif-shade)),
+    var(--color-background) url('/motif-v6.webp') center / cover no-repeat;
 }
 
 h1, h2, h3, h4, h5, h6 {
